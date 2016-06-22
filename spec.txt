@@ -1,0 +1,12 @@
+Kampaania
+  Kauplused:
+  Kauplus 1
+  Kauplus 2
+    Vahetused:
+    Laupäev 10:00 - 14:00
+    Laupäev 14:00 - 18:00
+      Registreerunud vabatahtlikud
+      Jaana (vahetuse vanem)
+      Kalle
+      Leena
+      Malle
