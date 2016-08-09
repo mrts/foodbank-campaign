@@ -1,0 +1,155 @@
+<html>
+<head>
+  <title>Toidukogumiskampaania 2016</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <style>
+    body { padding: 15px; }
+    #chosenLocation { padding-left: 10px; }
+    #countySelect { margin-bottom: 24px; }
+  </style>
+</head>
+<body>
+  <div class="page-header">
+    <h1>Toidukogumiskampaania 2016</h1>
+  </div>
+
+  <!-- modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Sulge"><span aria-hidden="true">&times;</span></button>
+          <h3 class="modal-title" id="myModalLabel">Vali pood ja vahetus</h3>
+        </div>
+        <div class="modal-body">
+          <h4>Maakond</h4>
+          <div id="countySelect">
+            <select class="form-control">
+              <option>Harjumaa</option>
+              <option>Tartumaa</option>
+              <option>Võrumaa</option>
+            </select>
+          </div>
+
+          <h4>Pood ja vahetus</h4>
+          <table class="table table-responsive">
+            <thead>
+              <tr>
+                <th>Pood</th>
+                <th>Vahetused</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Tallinn, Tondi Selver</td>
+                <td>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox"> 10. detsember, laupäev, kell
+                      13:00 - 16:00<br>
+                      <span class="badge">3</span> vaba kohta
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox"> 11. detsember, pühapäev, kell
+                      13:00 - 16:00<br>
+                      <span class="badge">2</span> vaba kohta
+                    </label>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Tallinn, Kristiine Prisma</td>
+                <td>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox"> 10. detsember, laupäev, kell
+                      13:00 - 16:00<br>(3 vaba kohta)
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox"> 11. detsember, pühapäev, kell
+                      13:00 - 16:00<br>(2 vaba kohta)
+                    </label>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Katkesta</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Kinnita valik</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ./modal -->
+
+  <!-- form -->
+  <form class="form-horizontal">
+    <div class="form-group">
+      <label for="inputEmail3" class="col-sm-2 control-label">Pood</label>
+      <div class="col-sm-10 form-inline">
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
+          Vali pood ja vahetus
+        </button>
+        <p class="form-control-static" id="chosenLocation">Pood ja vahetus
+        valimata</p>
+      </div>
+    </div>
+  <!-- button for modal -->
+
+    <div class="form-group">
+      <label for="inputEmail3" class="col-sm-2 control-label">Eesnimi</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="inputEmail3" placeholder="Eesnimi">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="inputPassword3" class="col-sm-2 control-label">Perenimi</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="inputPassword3" placeholder="Perenimi">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="inputPassword3" class="col-sm-2 control-label">Vanus</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="inputPassword3" placeholder="Vanus">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="inputPassword3" class="col-sm-2 control-label">Telefon</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="inputPassword3" placeholder="Telefon">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="inputPassword3" class="col-sm-2 control-label">E-mail</label>
+      <div class="col-sm-10">
+        <input type="email" class="form-control" id="inputPassword3" placeholder="E-mail">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-primary">Registreeru</button>
+      </div>
+    </div>
+
+  </form>
+  <!-- ./form -->
+
+  <!-- JavaScript -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</body>
+</html>
