@@ -48,7 +48,6 @@
           </table>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Katkesta</button>
           <button type="button" class="btn btn-primary" data-dismiss="modal">Kinnita valik</button>
         </div>
       </div>
@@ -64,7 +63,7 @@
         <button id="chooseShopAndShiftButton" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
           Vali pood ja vahetus
         </button>
-        <p class="form-control-static" id="selectedShopsAndShifts">Pood ja vahetus valimata</p>
+        <p class="form-control-static" id="selectedShopsAndShifts"></p>
       </div>
     </div>
   <!-- button for modal -->
@@ -185,6 +184,7 @@
     }
 
     var selectedShifts = [];
+    var NOTHING_SELECTED = 'Pood ja vahetus valimata';
 
     function handleShiftSelect(checkbox) {
       if (checkbox.checked) {
@@ -192,9 +192,13 @@
       } else {
         _.pull(selectedShifts, $(checkbox).data('description'));
       }
-      var render = _.template('<% _.forEach(shifts, function (shift) { %>' +
+      var content = NOTHING_SELECTED;
+      if (!_.isEmpty(selectedShifts)) {
+        var render = _.template('<% _.forEach(shifts, function (shift) { %>' +
             '<%- shift %><br><% }) %>');
-      $('#selectedShopsAndShifts').html(render({shifts: selectedShifts}));
+        content = render({shifts: selectedShifts});
+      }
+      $('#selectedShopsAndShifts').html(content);
     }
 
     function fillShopAndShiftTable(selectedCounty) {
@@ -203,12 +207,14 @@
     }
 
     $(document).ready(function () {
+        $('#selectedShopsAndShifts').text(NOTHING_SELECTED);
+
         $('#countySelect > select').change(function () {
           var selection = $(this).val();
           fillShopAndShiftTable(selection);
 
           selectedShifts = [];
-          $('#selectedShopsAndShifts').text('Pood ja vahetus valimata');
+          $('#selectedShopsAndShifts').text(NOTHING_SELECTED);
         });
 
         // fill table with Harjumaa entries on first click
