@@ -1,11 +1,14 @@
+<!DOCTYPE html>
 <html>
 <head>
   <title>Toidukogumiskampaania 2016</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
   <style>
     body { padding: 15px; }
-    #chosenLocation { padding-left: 10px; }
+    #selectedShopsAndShifts { padding-left: 10px; }
     #countySelect { margin-bottom: 24px; }
   </style>
 </head>
@@ -26,14 +29,14 @@
           <h4>Maakond</h4>
           <div id="countySelect">
             <select class="form-control">
-              <option>Harjumaa</option>
-              <option>Tartumaa</option>
-              <option>Võrumaa</option>
+              <option value="harjumaa">Harjumaa</option>
+              <option value="tartumaa">Tartumaa</option>
+              <option value="vorumaa">Võrumaa</option>
             </select>
           </div>
 
           <h4>Pood ja vahetus</h4>
-          <table class="table table-responsive">
+          <table id="shopAndShiftList" class="table table-responsive">
             <thead>
               <tr>
                 <th>Pood</th>
@@ -41,42 +44,6 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Tallinn, Tondi Selver</td>
-                <td>
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox"> 10. detsember, laupäev, kell
-                      13:00 - 16:00<br>
-                      <span class="badge">3</span> vaba kohta
-                    </label>
-                  </div>
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox"> 11. detsember, pühapäev, kell
-                      13:00 - 16:00<br>
-                      <span class="badge">2</span> vaba kohta
-                    </label>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>Tallinn, Kristiine Prisma</td>
-                <td>
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox"> 10. detsember, laupäev, kell
-                      13:00 - 16:00<br>(3 vaba kohta)
-                    </label>
-                  </div>
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox"> 11. detsember, pühapäev, kell
-                      13:00 - 16:00<br>(2 vaba kohta)
-                    </label>
-                  </div>
-                </td>
-              </tr>
             </tbody>
           </table>
         </div>
@@ -93,12 +60,11 @@
   <form class="form-horizontal">
     <div class="form-group">
       <label for="inputEmail3" class="col-sm-2 control-label">Pood</label>
-      <div class="col-sm-10 form-inline">
-        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
+      <div class="col-sm-10 form-inline" style="vertical-align: top">
+        <button id="chooseShopAndShiftButton" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
           Vali pood ja vahetus
         </button>
-        <p class="form-control-static" id="chosenLocation">Pood ja vahetus
-        valimata</p>
+        <p class="form-control-static" id="selectedShopsAndShifts">Pood ja vahetus valimata</p>
       </div>
     </div>
   <!-- button for modal -->
@@ -149,7 +115,108 @@
 
   <!-- JavaScript -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.15.0/lodash.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <script>
+    function getItems(selectedCounty) {
+      var items = {
+        harjumaa: [{
+            shop: 'Tallinn, Tondi Selver',
+            shifts: [{
+              when: '10. detsember, laupäev, kell 13:00 - 16:00',
+              freePlaces: 3
+            }, {
+              when: '11. detsember, pühapäev, kell 13:00 - 16:00',
+              freePlaces: 2
+            }]
+          }, {
+            shop: 'Tallinn, Kristiine Selver',
+            shifts: [{
+              when: '10. detsember, laupäev, kell 7:00 - 21:00',
+              freePlaces: 12
+            }, {
+              when: '11. detsember, pühapäev, kell 22:00 - 00:00',
+              freePlaces: 90
+            }]
+          }
+        ],
+        tartumaa: [{
+            shop: 'Tartu, Ülejõe Selver',
+            shifts: [{
+              when: '10. detsember, laupäev, kell 15:00 - 16:00',
+              freePlaces: 3
+            }, {
+              when: '11. detsember, pühapäev, kell 11:00 - 16:00',
+              freePlaces: 2
+            }]
+          }, {
+            shop: 'Tartu, Tasku Selver',
+            shifts: [{
+              when: '10. detsember, laupäev, kell 7:00 - 21:00',
+              freePlaces: 12
+            }, {
+              when: '11. detsember, pühapäev, kell 22:00 - 00:00',
+              freePlaces: 90
+            }]
+          }
+        ]
+      };
+      return items[selectedCounty];
+    }
+
+    function getTemplate() {
+      var template = '<% _.forEach(items, function(item) { %>' +
+        '<tr>' +
+          '<td>${item.shop}</td>' +
+          '<td>' +
+            '<% _.forEach(item.shifts, function(shift) { %>' +
+              '<div class="checkbox"><label>' +
+              '<input type="checkbox" ' +
+              "data-description='<%- item.shop %>, <%- shift.when %>' " +
+                'onclick="handleShiftSelect(this)"> ${shift.when}<br>' +
+              '(${shift.freePlaces} vaba kohta)' +
+              '</label></div>' +
+            '<% }); %>' +
+          '</td>' +
+        '</tr>' +
+      '<% }); %>';
+      return template;
+    }
+
+    var selectedShifts = [];
+
+    function handleShiftSelect(checkbox) {
+      if (checkbox.checked) {
+        selectedShifts.push($(checkbox).data('description'));
+      } else {
+        _.pull(selectedShifts, $(checkbox).data('description'));
+      }
+      var render = _.template('<% _.forEach(shifts, function (shift) { %>' +
+            '<%- shift %><br><% }) %>');
+      $('#selectedShopsAndShifts').html(render({shifts: selectedShifts}));
+    }
+
+    function fillShopAndShiftTable(selectedCounty) {
+      var render = _.template(getTemplate());
+      $('#shopAndShiftList').html(render({items: getItems(selectedCounty)}));
+    }
+
+    $(document).ready(function () {
+        $('#countySelect > select').change(function () {
+          var selection = $(this).val();
+          fillShopAndShiftTable(selection);
+
+          selectedShifts = [];
+          $('#selectedShopsAndShifts').text('Pood ja vahetus valimata');
+        });
+
+        // fill table with Harjumaa entries on first click
+        $('#chooseShopAndShiftButton').one('click', function() {
+          fillShopAndShiftTable('harjumaa');
+        });
+    });
+  </script>
 
 </body>
 </html>
