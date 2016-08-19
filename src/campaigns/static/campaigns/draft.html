@@ -119,70 +119,70 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.15.0/lodash.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+  <script type="text/template" id="shopsAndShiftsTemplate">
+    <% _.forEach(shopsAndShifts, function(item) { %>
+      <tr>
+        <td>${item.shop}</td>
+        <td>
+          <% _.forEach(item.shifts, function(shift) { %>
+            <div class="checkbox"><label>
+            <input type="checkbox"
+            data-description='<%- item.shop %>, <%- shift.when %>'
+              onclick="handleShiftSelect(this)"> ${shift.when}<br>
+            (${shift.freePlaces} vaba kohta)
+            </label></div>
+          <% }); %>
+        </td>
+      </tr>
+    <% }); %>
+  </script>
+
   <script>
-    function getItems(selectedCounty) {
-      var items = {
-        harjumaa: [{
-            shop: 'Tallinn, Tondi Selver',
-            shifts: [{
-              when: '10. detsember, laupäev, kell 13:00 - 16:00',
-              freePlaces: 3
-            }, {
-              when: '11. detsember, pühapäev, kell 13:00 - 16:00',
-              freePlaces: 2
-            }]
+    var shopsAndShifts = {
+      harjumaa: [{
+          shop: 'Tallinn, Tondi Selver',
+          shifts: [{
+            when: '10. detsember, laupäev, kell 13:00 - 16:00',
+            freePlaces: 3
           }, {
-            shop: 'Tallinn, Kristiine Selver',
-            shifts: [{
-              when: '10. detsember, laupäev, kell 7:00 - 21:00',
-              freePlaces: 12
-            }, {
-              when: '11. detsember, pühapäev, kell 22:00 - 00:00',
-              freePlaces: 90
-            }]
-          }
-        ],
-        tartumaa: [{
-            shop: 'Tartu, Ülejõe Selver',
-            shifts: [{
-              when: '10. detsember, laupäev, kell 15:00 - 16:00',
-              freePlaces: 3
-            }, {
-              when: '11. detsember, pühapäev, kell 11:00 - 16:00',
-              freePlaces: 2
-            }]
+            when: '11. detsember, pühapäev, kell 13:00 - 16:00',
+            freePlaces: 2
+          }]
+        }, {
+          shop: 'Tallinn, Kristiine Selver',
+          shifts: [{
+            when: '10. detsember, laupäev, kell 7:00 - 21:00',
+            freePlaces: 12
           }, {
-            shop: 'Tartu, Tasku Selver',
-            shifts: [{
-              when: '10. detsember, laupäev, kell 7:00 - 21:00',
-              freePlaces: 12
-            }, {
-              when: '11. detsember, pühapäev, kell 22:00 - 00:00',
-              freePlaces: 90
-            }]
-          }
-        ]
-      };
-      return items[selectedCounty];
-    }
+            when: '11. detsember, pühapäev, kell 22:00 - 00:00',
+            freePlaces: 90
+          }]
+        }
+      ],
+      tartumaa: [{
+          shop: 'Tartu, Ülejõe Selver',
+          shifts: [{
+            when: '10. detsember, laupäev, kell 15:00 - 16:00',
+            freePlaces: 3
+          }, {
+            when: '11. detsember, pühapäev, kell 11:00 - 16:00',
+            freePlaces: 2
+          }]
+        }, {
+          shop: 'Tartu, Tasku Selver',
+          shifts: [{
+            when: '10. detsember, laupäev, kell 7:00 - 21:00',
+            freePlaces: 12
+          }, {
+            when: '11. detsember, pühapäev, kell 22:00 - 00:00',
+            freePlaces: 90
+          }]
+        }
+      ]
+    };
 
     function getTemplate() {
-      var template = '<% _.forEach(items, function(item) { %>' +
-        '<tr>' +
-          '<td>${item.shop}</td>' +
-          '<td>' +
-            '<% _.forEach(item.shifts, function(shift) { %>' +
-              '<div class="checkbox"><label>' +
-              '<input type="checkbox" ' +
-              "data-description='<%- item.shop %>, <%- shift.when %>' " +
-                'onclick="handleShiftSelect(this)"> ${shift.when}<br>' +
-              '(${shift.freePlaces} vaba kohta)' +
-              '</label></div>' +
-            '<% }); %>' +
-          '</td>' +
-        '</tr>' +
-      '<% }); %>';
-      return template;
+      return $('#shopsAndShiftsTemplate').text();
     }
 
     var selectedShifts = [];
@@ -205,7 +205,9 @@
 
     function fillShopAndShiftTable(selectedCounty) {
       var render = _.template(getTemplate());
-      $('#shopAndShiftList').html(render({items: getItems(selectedCounty)}));
+      $('#shopAndShiftList').html(render({
+        shopsAndShifts: shopsAndShifts[selectedCounty]
+      }));
     }
 
     $(document).ready(function () {
