@@ -28,8 +28,8 @@ def registration(request):
                 campaign=campaign).annotate(free_places=F('total_places') - Count('volunteers'))
         context = {
             'campaign': campaign,
-            'districts': districts,
-            'locations_and_shifts': locations_and_shifts,
+            'districts': list(districts),
+            'locations_and_shifts': list(locations_and_shifts),
             'form': VolunteerRegistrationForm(),
         }
         return render(request, 'campaigns/registration.html', context)
