@@ -1,0 +1,186 @@
+{% extends "campaigns/base.html" %}
+{% block title %}{{ campaign.name }}{% endblock title %}
+{% block css %}
+  <style>
+    p { padding: 15px; margin-bottom: 25px; }
+    #selectedShopsAndShifts { padding-left: 10px; float: left; }
+    #chooseShopAndShiftButton { float: left; }
+    #countySelect { margin-bottom: 24px; }
+  </style>
+{% endblock css %}
+{% block body %}
+
+  <div class="container"><div class="row"><div class="col-md-9">
+
+  <div class="page-header">
+    <h1>{{ campaign.name }}</h1>
+  </div>
+
+  <p class="bg-warning">Kampaania toimub {{ campaign.start }} - {{ campaign.end }}</p>
+  <p class="bg-info">{{ campaign.description }}</p>
+
+  <!-- modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Sulge"><span aria-hidden="true">&times;</span></button>
+          <h3 class="modal-title" id="myModalLabel">Vali pood ja vahetus</h3>
+        </div>
+        <div class="modal-body">
+          <h4>Maakond</h4>
+          <div id="countySelect">
+            <select class="form-control">
+              {% for district in districts %}
+              <option value="{{ district.id }}">{{ district.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <h4>Pood ja vahetus</h4>
+          <table id="shopAndShiftList" class="table table-responsive">
+            <thead>
+              <tr>
+                <th>Pood</th>
+                <th>Vahetused</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Kinnita valik</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ./modal -->
+
+  <!-- form -->
+  <form method="POST" class="form-horizontal">
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label for="shop" class="col-sm-2 control-label">Pood</label>
+      <div class="col-sm-10 form-inline">
+        <!-- button for modal -->
+        <button id="chooseShopAndShiftButton" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
+          Vali pood ja vahetus
+        </button>
+        <p class="form-control-static" id="selectedShopsAndShifts"></p>
+      </div>
+    </div>
+
+    {% for field in form %}
+    <div class="form-group">
+      {{ field.errors }}
+      <label for="{{ field.id_for_label }}" class="col-sm-2 control-label">
+        {{ field.label }}
+      </label>
+      <div class="col-sm-10">
+        {{ field }}
+      </div>
+    </div>
+    {% endfor %}
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-primary">Registreeru</button>
+      </div>
+    </div>
+
+  </form>
+  <!-- ./form -->
+
+
+  </div></div></div>
+{% endblock body %}
+{% block js %}
+  <script type="text/template" id="shopsAndShiftsTemplate">
+    <% _.forEach(shopsAndShifts, function(item) { %>
+      <tr>
+        <td>${item.shop}</td>
+        <td>
+          <% _.forEach(item.shifts, function(shift) { %>
+            <div class="checkbox"><label>
+            <input type="checkbox"
+            data-description='<%- item.shop %>, <%- shift.when %>'
+              onclick="handleShiftSelect(this)"> ${shift.when}<br>
+            (${shift.freePlaces} vaba kohta)
+            </label></div>
+          <% }); %>
+        </td>
+      </tr>
+    <% }); %>
+  </script>
+
+  <script>
+    {% regroup locations_and_shifts by location.district as district_list %}
+    var shopsAndShifts = {
+    {% for district in district_list %}
+    {{ district.grouper.id }}: [ // {{ district.grouper }}
+        {% regroup district.list by location as location_shifts %}
+        {% for location in location_shifts %}
+          {
+            shop: '{{ location.grouper.name }}',
+            shifts: [
+            {% for shift in location.list %}
+              {
+                when: '{{ shift.day }} {{ shift.start }} - {{ shift.end }}',
+                freePlaces: {{ shift.free_places }}
+              }{% if not forloop.last %},{% endif %}
+            {% endfor %}
+            ]
+          }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+      ]{% if not forloop.last %},{% endif %}
+    {% endfor %}
+    };
+
+    function getTemplate() {
+      return $('#shopsAndShiftsTemplate').text();
+    }
+
+    var selectedShifts = [];
+    var NOTHING_SELECTED = 'Pood ja vahetus valimata';
+
+    function handleShiftSelect(checkbox) {
+      if (checkbox.checked) {
+        selectedShifts.push($(checkbox).data('description'));
+      } else {
+        _.pull(selectedShifts, $(checkbox).data('description'));
+      }
+      var content = NOTHING_SELECTED;
+      if (!_.isEmpty(selectedShifts)) {
+        var render = _.template('<% _.forEach(shifts, function (shift) { %><%- shift %><br><% }) %>');
+        content = render({shifts: selectedShifts});
+      }
+      $('#selectedShopsAndShifts').html(content);
+    }
+
+    function fillShopAndShiftTable(selectedCounty) {
+      var render = _.template(getTemplate());
+      $('#shopAndShiftList').html(render({
+        shopsAndShifts: shopsAndShifts[selectedCounty]
+      }));
+    }
+
+    $(document).ready(function () {
+        $('#selectedShopsAndShifts').text(NOTHING_SELECTED);
+
+        $('#countySelect > select').change(function () {
+          var selection = $(this).val();
+          fillShopAndShiftTable(selection);
+
+          selectedShifts = [];
+          $('#selectedShopsAndShifts').text(NOTHING_SELECTED);
+        });
+
+        // fill table with Harjumaa entries on first click
+        $('#chooseShopAndShiftButton').one('click', function() {
+          fillShopAndShiftTable(1);
+        });
+    });
+  </script>
+{% endblock %}

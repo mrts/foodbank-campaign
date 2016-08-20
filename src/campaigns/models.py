@@ -24,7 +24,7 @@ class CampaignLocationShift(models.Model):
     start = models.TimeField()
     end = models.TimeField()
     total_places = models.IntegerField()
-    volunteers = models.ManyToManyField(Volunteer, null=True, blank=True)
+    volunteers = models.ManyToManyField(Volunteer, blank=True)
 
     class Meta:
         unique_together = ('campaign', 'location', 'day', 'start')
