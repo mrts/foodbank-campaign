@@ -1,7 +1,7 @@
 from django.db import models
 
 class District(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
 
     def __unicode__(self):
         return self.name
@@ -17,6 +17,9 @@ class Location(models.Model):
     # TODO:
     # latitude = models.DecimalField()
     # longitude = models.DecimalField()
+
+    class Meta:
+        unique_together = ('district', 'name')
 
     def __unicode__(self):
         return self.name
