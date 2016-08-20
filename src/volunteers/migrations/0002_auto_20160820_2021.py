@@ -12,7 +12,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunSQL(['DELETE FROM volunteers_volunteer;']),
         migrations.RemoveField(
             model_name='volunteer',
             name='name',
