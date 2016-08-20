@@ -144,6 +144,8 @@
 
     var selectedShifts = [];
     var NOTHING_SELECTED = 'Pood ja vahetus valimata';
+    var BUTTON_NOTHING_SELECTED = 'Vali pood ja vahetus';
+    var BUTTON_SOMETHING_SELECTED = 'Pood ja vahetus valitud';
 
     function handleShiftSelect(checkbox) {
       if (checkbox.checked) {
@@ -152,11 +154,14 @@
         _.pull(selectedShifts, $(checkbox).data('description'));
       }
       var content = NOTHING_SELECTED;
+      var buttonLabel = BUTTON_NOTHING_SELECTED;
       if (!_.isEmpty(selectedShifts)) {
+        buttonLabel = BUTTON_SOMETHING_SELECTED;
         var render = _.template('<% _.forEach(shifts, function (shift) { %><%- shift %><br><% }) %>');
         content = render({shifts: selectedShifts});
       }
       $('#selectedShopsAndShifts').html(content);
+      $('#chooseShopAndShiftButton').text(buttonLabel);
     }
 
     function fillShopAndShiftTable(selectedCounty) {
