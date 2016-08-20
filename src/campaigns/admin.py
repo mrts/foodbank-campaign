@@ -3,6 +3,7 @@ from django import forms
 
 from campaigns.models import Campaign, CampaignLocationShift
 
+
 class CampaignAdminForm(forms.ModelForm):
     def clean_is_active(self):
         is_active = self.cleaned_data['is_active']
@@ -10,10 +11,12 @@ class CampaignAdminForm(forms.ModelForm):
             raise forms.ValidationError('Only one campaign can be active')
         return is_active
 
+
 class CampaignAdmin(admin.ModelAdmin):
     form = CampaignAdminForm
     list_display = ['name', 'start', 'end', 'is_active']
     ordering = ['-start']
+
 
 class VolunteerParticipantInline(admin.TabularInline):
     model = CampaignLocationShift.volunteers.through
@@ -21,6 +24,10 @@ class VolunteerParticipantInline(admin.TabularInline):
     verbose_name_plural = 'Participants'
     extra = 0
     raw_id_fields = ['volunteer']
+
+    class Media:
+        js = ['campaigns/make-volunteer-readonly.js']
+
 
 class CampaignLocationShiftAdmin(admin.ModelAdmin):
     list_display = ['campaign', 'location', 'day', 'start', 'end',
@@ -33,6 +40,7 @@ class CampaignLocationShiftAdmin(admin.ModelAdmin):
 
     def registered_volunteers(self, obj):
         return obj.volunteers.count()
+
 
 admin.site.register(Campaign, CampaignAdmin)
 admin.site.register(CampaignLocationShift, CampaignLocationShiftAdmin)
