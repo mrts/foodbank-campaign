@@ -205,7 +205,7 @@
 
     function fillShopAndShiftTable(selectedCounty) {
       var render = _.template(getTemplate());
-      $('#shopAndShiftList').html(render({
+      $('#shopAndShiftList > tbody').html(render({
         shopsAndShifts: shopsAndShifts[selectedCounty]
       }));
     }
