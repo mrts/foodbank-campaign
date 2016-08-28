@@ -1,19 +1,9 @@
 from django.contrib import admin
-from django import forms
 
 from campaigns.models import Campaign, CampaignLocationShift
 
 
-class CampaignAdminForm(forms.ModelForm):
-    def clean_is_active(self):
-        is_active = self.cleaned_data['is_active']
-        if is_active and Campaign.objects.filter(is_active=True).exists():
-            raise forms.ValidationError('Only one campaign can be active')
-        return is_active
-
-
 class CampaignAdmin(admin.ModelAdmin):
-    form = CampaignAdminForm
     list_display = ['name', 'start', 'end', 'is_active']
     ordering = ['-start']
 

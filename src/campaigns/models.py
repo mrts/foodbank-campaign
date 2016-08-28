@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 from locations.models import Location
 from volunteers.models import Volunteer
@@ -16,6 +17,14 @@ class Campaign(models.Model):
 
     def __unicode__(self):
         return u"{start} {name}".format(**self.__dict__)
+
+    def clean(self):
+        if (self.is_active and Campaign.objects
+                .filter(is_active=True)
+                .exclude(pk=self.pk) # works when pk is None, too
+                .exists()):
+            raise ValidationError('Only one campaign can be active at a time')
+
 
 class CampaignLocationShift(models.Model):
     campaign = models.ForeignKey(Campaign)
