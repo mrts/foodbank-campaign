@@ -22,10 +22,13 @@ class VolunteerRegistrationForm(forms.ModelForm):
 def registration(request):
     try:
         campaign = Campaign.objects.get(is_active=True)
-        districts = District.objects.filter(
-                location__campaignlocationshift__isnull=False).order_by('name').distinct()
-        locations_and_shifts = CampaignLocationShift.objects.filter(
-                campaign=campaign).annotate(free_places=F('total_places') - Count('volunteers'))
+        districts = (District.objects
+                .filter(location__campaignlocationshift__campaign=campaign)
+                .order_by('name')
+                .distinct())
+        locations_and_shifts = (CampaignLocationShift.objects
+                .filter(campaign=campaign)
+                .annotate(free_places=F('total_places') - Count('volunteers')))
         context = {
             'campaign': campaign,
             'districts': list(districts),
