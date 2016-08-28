@@ -16,30 +16,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\volunteers\apps.py:7 .\volunteers\models.py:14
-msgid "Volunteers"
-msgstr "Vabatahtlikud"
-
-#: .\volunteers\models.py:6
-msgid "First name"
-msgstr "Eesnimi"
-
-#: .\volunteers\models.py:7
-msgid "Last name"
-msgstr "Perenimi"
-
-#: .\volunteers\models.py:8
-msgid "Age"
-msgstr "Vanus"
-
-#: .\volunteers\models.py:9
-msgid "Phone"
-msgstr "Telefon"
-
-#: .\volunteers\models.py:10
-msgid "E-mail"
-msgstr "E-mail"
-
-#: .\volunteers\models.py:13
-msgid "Volunteer"
-msgstr "Vabatahtlik"
+#: .\toidupank\urls.py:20
+msgid "Foodbank campaign administration"
+msgstr "Toidupanga kampaaniate haldamine"

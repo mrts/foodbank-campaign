@@ -16,7 +16,9 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
-admin.site.site_title = 'Toidupank campaign administration'
+# from django.utils.translation import ugettext_lazy as _
+# _('Foodbank campaign administration') seems not to work, go figure
+admin.site.site_title = 'Toidupanga kampaaniate haldamine'
 admin.site.site_header = admin.site.site_title
 
 urlpatterns = [
