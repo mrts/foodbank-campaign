@@ -5,7 +5,7 @@ from campaigns.models import Campaign, CampaignLocationShift
 
 class CampaignAdmin(admin.ModelAdmin):
     list_display = ['name', 'start', 'end', 'is_active']
-    ordering = ['-start']
+    ordering = ['-is_active', '-start']
 
 
 class VolunteerParticipantInline(admin.TabularInline):
