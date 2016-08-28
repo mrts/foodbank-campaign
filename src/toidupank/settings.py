@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'tinymce',
     'volunteers',
     'locations',
     'campaigns',
@@ -107,9 +108,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'et-ee'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Tallinn'
 
 USE_I18N = True
 
@@ -128,3 +129,13 @@ STATIC_ROOT = os.path.join(HTDOCS, 'static', 'media')
 
 MEDIA_URL   = '/static/uploads/'
 MEDIA_ROOT  = os.path.join(HTDOCS, 'static', 'uploads')
+
+
+TINYMCE_DEFAULT_CONFIG = {
+    'theme': 'advanced',
+    'relative_urls': False,
+    'theme_advanced_buttons1': 'bold,italic,link,separator,'
+        'bullist,numlist,separator,undo,redo,separator,removeformat,code',
+    'width': 500,
+    'height': 250,
+}

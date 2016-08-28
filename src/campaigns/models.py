@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 
+from tinymce.models import HTMLField
+
 from locations.models import Location
 from volunteers.models import Volunteer
 
@@ -9,8 +11,10 @@ class Campaign(models.Model):
     name = models.CharField(max_length=255)
     start = models.DateField()
     end = models.DateField()
-    description = models.TextField()
     is_active = models.BooleanField()
+    registration_form_header = HTMLField()
+    registration_form_footer = HTMLField()
+    registration_form_right_panel = HTMLField()
 
     class Meta:
         unique_together = ('start', 'name')

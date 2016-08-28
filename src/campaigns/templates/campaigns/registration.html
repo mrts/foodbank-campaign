@@ -2,7 +2,7 @@
 {% block title %}{{ campaign.name }}{% endblock title %}
 {% block css %}
   <style>
-    p { padding: 15px; margin-bottom: 25px; }
+    form { margin-top: 40px; margin-bottom: 50px; }
     #selectedShopsAndShifts { padding-left: 10px; float: left; }
     #chooseShopAndShiftButton { float: left; }
     #countySelect { margin-bottom: 24px; }
@@ -10,92 +10,120 @@
 {% endblock css %}
 {% block body %}
 
-  <div class="container"><div class="row"><div class="col-md-9">
+<div class="container">
 
-  <div class="page-header">
-    <h1>{{ campaign.name }}</h1>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="page-header">
+        <h1>{{ campaign.name }}</h1>
+        <h2>{{ campaign.start|date:"j. F" }} - {{ campaign.end|date:"j. F" }}</h2>
+      </div>
+    </div>
   </div>
 
-  <p class="bg-warning">Kampaania toimub {{ campaign.start }} - {{ campaign.end }}</p>
-  <p class="bg-info">{{ campaign.description }}</p>
+  <div class="row">
+    <div class="col-md-8">
 
-  <!-- modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Sulge"><span aria-hidden="true">&times;</span></button>
-          <h3 class="modal-title" id="myModalLabel">Vali pood ja vahetus</h3>
+      <div class="row">
+        <div class="col-md-12">
+          {{ campaign.registration_form_header|safe }}
         </div>
-        <div class="modal-body">
-          <h4>Maakond</h4>
-          <div id="countySelect">
-            <select class="form-control">
-              {% for district in districts %}
-              <option value="{{ district.id }}">{{ district.name }}</option>
-              {% endfor %}
-            </select>
+      </div> <!-- row -->
+
+      <div class="row">
+        <div class="col-md-12">
+          <!-- modal -->
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Sulge"><span aria-hidden="true">&times;</span></button>
+                  <h3 class="modal-title" id="myModalLabel">Vali pood ja vahetus</h3>
+                </div>
+                <div class="modal-body">
+                  <h4>Maakond</h4>
+                  <div id="countySelect">
+                    <select class="form-control">
+                      {% for district in districts %}
+                      <option value="{{ district.id }}">{{ district.name }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+
+                  <h4>Pood ja vahetus</h4>
+                  <table id="shopAndShiftList" class="table table-responsive">
+                    <thead>
+                      <tr>
+                        <th>Pood</th>
+                        <th>Vahetused</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Kinnita valik</button>
+                </div>
+              </div>
+            </div>
           </div>
+          <!-- ./modal -->
 
-          <h4>Pood ja vahetus</h4>
-          <table id="shopAndShiftList" class="table table-responsive">
-            <thead>
-              <tr>
-                <th>Pood</th>
-                <th>Vahetused</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
+          <!-- form -->
+          <form method="POST" class="form-horizontal">
+            {% csrf_token %}
+
+            <div class="form-group">
+              <label for="shop" class="col-sm-2 control-label">Pood</label>
+              <div class="col-sm-10 form-inline">
+                <!-- button for modal -->
+                <button id="chooseShopAndShiftButton" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
+                  Vali pood ja vahetus
+                </button>
+                <p class="form-control-static" id="selectedShopsAndShifts"></p>
+              </div>
+            </div>
+
+            {% for field in form %}
+            <div class="form-group">
+              {{ field.errors }}
+              <label for="{{ field.id_for_label }}" class="col-sm-2 control-label">
+                {{ field.label }}
+              </label>
+              <div class="col-sm-10">
+                {{ field }}
+              </div>
+            </div>
+            {% endfor %}
+
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Registreeru</button>
+              </div>
+            </div>
+
+          </form>
+          <!-- ./form -->
+
+        </div> <!-- col-md-12 -->
+      </div> <!-- row -->
+
+      <div class="row">
+        <div class="col-md-12">
+          {{ campaign.registration_form_footer|safe }}
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Kinnita valik</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- ./modal -->
+      </div> <!-- row -->
+    </div> <!-- col-md-8 -->
 
-  <!-- form -->
-  <form method="POST" class="form-horizontal">
-    {% csrf_token %}
-
-    <div class="form-group">
-      <label for="shop" class="col-sm-2 control-label">Pood</label>
-      <div class="col-sm-10 form-inline">
-        <!-- button for modal -->
-        <button id="chooseShopAndShiftButton" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
-          Vali pood ja vahetus
-        </button>
-        <p class="form-control-static" id="selectedShopsAndShifts"></p>
-      </div>
+    <div class="col-md-4">
+      {{ campaign.registration_form_right_panel|safe }}
     </div>
 
-    {% for field in form %}
-    <div class="form-group">
-      {{ field.errors }}
-      <label for="{{ field.id_for_label }}" class="col-sm-2 control-label">
-        {{ field.label }}
-      </label>
-      <div class="col-sm-10">
-        {{ field }}
-      </div>
-    </div>
-    {% endfor %}
-
-    <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-primary">Registreeru</button>
-      </div>
-    </div>
-
-  </form>
-  <!-- ./form -->
-
-
-  </div></div></div>
+  </div> <!-- row -->
+</div> <!-- container -->
 {% endblock body %}
+
 {% block js %}
   <script type="text/template" id="shopsAndShiftsTemplate">
     <% _.forEach(shopsAndShifts, function(item) { %>
