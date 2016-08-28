@@ -153,6 +153,10 @@
       } else {
         _.pull(selectedShifts, $(checkbox).data('description'));
       }
+      renderSelectedShiftsInfo();
+    }
+
+    function renderSelectedShiftsInfo() {
       var content = NOTHING_SELECTED;
       var buttonLabel = BUTTON_NOTHING_SELECTED;
       if (!_.isEmpty(selectedShifts)) {
@@ -177,9 +181,8 @@
         $('#countySelect > select').change(function () {
           var selection = $(this).val();
           fillShopAndShiftTable(selection);
-
           selectedShifts = [];
-          $('#selectedShopsAndShifts').text(NOTHING_SELECTED);
+          renderSelectedShiftsInfo();
         });
 
         // fill table with Harjumaa entries on first click
