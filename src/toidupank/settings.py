@@ -130,6 +130,7 @@ STATIC_ROOT = os.path.join(HTDOCS, 'static', 'media')
 MEDIA_URL   = '/static/uploads/'
 MEDIA_ROOT  = os.path.join(HTDOCS, 'static', 'uploads')
 
+# Rich-text editor
 
 TINYMCE_DEFAULT_CONFIG = {
     'theme': 'advanced',
