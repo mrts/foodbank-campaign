@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.translation import ugettext_lazy as _
 
 from campaigns.models import Campaign, CampaignLocationShift
 
@@ -10,8 +11,8 @@ class CampaignAdmin(admin.ModelAdmin):
 
 class VolunteerParticipantInline(admin.TabularInline):
     model = CampaignLocationShift.volunteers.through
-    verbose_name = 'Participants'
-    verbose_name_plural = 'Participants'
+    verbose_name = _('Participant')
+    verbose_name_plural = _('Participants')
     extra = 0
     raw_id_fields = ['volunteer']
 
@@ -30,6 +31,7 @@ class CampaignLocationShiftAdmin(admin.ModelAdmin):
 
     def registered_volunteers(self, obj):
         return obj.volunteers.count()
+    registered_volunteers.short_description = _('Registered volunteers')
 
 
 admin.site.register(Campaign, CampaignAdmin)

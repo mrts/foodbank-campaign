@@ -1,0 +1,89 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-08-28 20:48+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\campaigns\admin.py:14
+msgid "Participant"
+msgstr "Osaleja"
+
+#: .\campaigns\admin.py:15
+msgid "Participants"
+msgstr "Osalejad"
+
+#: .\campaigns\admin.py:34
+msgid "Registered volunteers"
+msgstr "Registreerunud"
+
+#: .\campaigns\apps.py:7 .\campaigns\models.py:23
+msgid "Campaigns"
+msgstr "Kampaaniad"
+
+#: .\campaigns\models.py:12
+msgid "Name"
+msgstr "Nimi"
+
+#: .\campaigns\models.py:13 .\campaigns\models.py:40
+msgid "Start"
+msgstr "Algus"
+
+#: .\campaigns\models.py:14 .\campaigns\models.py:41
+msgid "End"
+msgstr "Lõpp"
+
+#: .\campaigns\models.py:15
+msgid "Is active"
+msgstr "Aktiivne"
+
+#: .\campaigns\models.py:16
+msgid "Registration form header"
+msgstr "Registreerumisvormi päis"
+
+#: .\campaigns\models.py:17
+msgid "Registration form footer"
+msgstr "Registreerumisvormi jalus"
+
+#: .\campaigns\models.py:18
+msgid "Registration form right panel"
+msgstr "Registreerumisvormi parem paneel"
+
+#: .\campaigns\models.py:22 .\campaigns\models.py:37
+msgid "Campaign"
+msgstr "Kampaania"
+
+#: .\campaigns\models.py:38
+msgid "Location"
+msgstr "Asukoht"
+
+#: .\campaigns\models.py:39
+msgid "Day"
+msgstr "Kuupäev"
+
+#: .\campaigns\models.py:42
+msgid "Total places"
+msgstr "Kohti"
+
+#: .\campaigns\models.py:44
+msgid "Volunteers"
+msgstr "Vabatahtlikud"
+
+#: .\campaigns\models.py:48
+msgid "Campaign shift"
+msgstr "Kampaania vahetus"
+
+#: .\campaigns\models.py:49
+msgid "Campaign shifts"
+msgstr "Kampaania vahetused"
