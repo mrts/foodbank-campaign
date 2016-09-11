@@ -1,0 +1,23 @@
+{% extends "campaigns/base.html" %}
+{% block title %}Tere {{ volunteer.name }}!{% endblock title %}
+
+{% block body %}
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="page-header">
+        <h1>Tere {{ volunteer.name }}!</h1>
+      </div>
+      <p>Olete registreerunud järgmistele vahetustele:</p>
+      <ol>
+        {% for shift in volunteer.campaignlocationshift_set.all %}
+        <li>{{ shift }}</li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+
+</div> <!-- container -->
+{% endblock body %}

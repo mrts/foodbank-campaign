@@ -15,7 +15,7 @@ class Volunteer(models.Model):
 
     @property
     def name(self):
-        return "{first_name} {last_name}".format(**self.__dict__)
+        return u'{first_name} {last_name}'.format(**self.__dict__)
 
     def __unicode__(self):
         return self.name

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html>
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
   <title>{% block title %}{% endblock title %} | Eesti Toidupank</title>
   <meta charset="utf-8">

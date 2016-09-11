@@ -6,6 +6,7 @@
     #selectedShopsAndShifts { padding-left: 10px; float: left; }
     #chooseShopAndShiftButton { float: left; }
     #countySelect { margin-bottom: 24px; }
+    .errorlist { color: #a94442; }
   </style>
 {% endblock css %}
 {% block body %}
@@ -74,19 +75,26 @@
           <form method="POST" class="form-horizontal">
             {% csrf_token %}
 
-            <div class="form-group">
-              <label for="shop" class="col-sm-2 control-label">Pood</label>
+            <div class="form-group{% if form.non_field_errors or form.hidden_fields.0.errors %} has-error{% endif %}">
+              {{ form.non_field_errors }}
+              {% for field in form.hidden_fields %}
+                {{ field.errors }}
+              {% endfor %}
+              <label class="col-sm-2 control-label">Pood</label>
               <div class="col-sm-10 form-inline">
                 <!-- button for modal -->
                 <button id="chooseShopAndShiftButton" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
                   Vali pood ja vahetus
                 </button>
                 <p class="form-control-static" id="selectedShopsAndShifts"></p>
+              {% for field in form.hidden_fields %}
+                {{ field }}
+              {% endfor %}
               </div>
             </div>
 
-            {% for field in form %}
-            <div class="form-group">
+            {% for field in form.visible_fields %}
+            <div class="form-group{% if field.errors %} has-error{% endif %}">
               {{ field.errors }}
               <label for="{{ field.id_for_label }}" class="col-sm-2 control-label">
                 {{ field.label }}
@@ -133,7 +141,8 @@
           <% _.forEach(item.shifts, function(shift) { %>
             <div class="checkbox"><label>
             <input type="checkbox"
-            data-description='<%- item.shop %>, <%- shift.when %>'
+              data-pk='<%- shift.pk %>'
+              data-description='<%- item.shop %>, <%- shift.when %>'
               onclick="handleShiftSelect(this)"> ${shift.when}<br>
             (${shift.freePlaces} vaba kohta)
             </label></div>
@@ -155,6 +164,7 @@
             shifts: [
             {% for shift in location.list %}
               {
+                pk: '{{ shift.pk }}',
                 when: '{{ shift.day }} {{ shift.start }} - {{ shift.end }}',
                 freePlaces: {{ shift.free_places }}
               }{% if not forloop.last %},{% endif %}
@@ -177,9 +187,9 @@
 
     function handleShiftSelect(checkbox) {
       if (checkbox.checked) {
-        selectedShifts.push($(checkbox).data('description'));
+        selectedShifts.push($(checkbox).data());
       } else {
-        _.pull(selectedShifts, $(checkbox).data('description'));
+        _.pull(selectedShifts, $(checkbox).data());
       }
       renderSelectedShiftsInfo();
     }
@@ -187,13 +197,16 @@
     function renderSelectedShiftsInfo() {
       var content = NOTHING_SELECTED;
       var buttonLabel = BUTTON_NOTHING_SELECTED;
+      var shiftsJson = JSON.stringify([]);
       if (!_.isEmpty(selectedShifts)) {
         buttonLabel = BUTTON_SOMETHING_SELECTED;
-        var render = _.template('<% _.forEach(shifts, function (shift) { %><%- shift %><br><% }) %>');
+        var render = _.template('<% _.forEach(shifts, function (shift) { %><%- shift.description %><br><% }) %>');
         content = render({shifts: selectedShifts});
+        shiftsJson = JSON.stringify(_.map(selectedShifts, 'pk'));
       }
       $('#selectedShopsAndShifts').html(content);
       $('#chooseShopAndShiftButton').text(buttonLabel);
+      $('#id_selected_shifts').val(shiftsJson);
     }
 
     function fillShopAndShiftTable(selectedCounty) {

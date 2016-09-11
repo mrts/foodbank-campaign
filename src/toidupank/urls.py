@@ -23,5 +23,6 @@ admin.site.site_header = admin.site.site_title
 
 urlpatterns = [
     url(r'', include('campaigns.urls')),
+    url(r'^volunteers/', include('volunteers.urls')),
     url(r'^admin/', admin.site.urls),
 ]
