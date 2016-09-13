@@ -140,3 +140,6 @@ TINYMCE_DEFAULT_CONFIG = {
     'width': 500,
     'height': 250,
 }
+
+# Fix Estonian date formatting
+FORMAT_MODULE_PATH = 'toidupank.formats'
