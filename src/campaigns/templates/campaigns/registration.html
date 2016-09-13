@@ -17,7 +17,7 @@
     <div class="col-md-12">
       <div class="page-header">
         <h1>{{ campaign.name }}</h1>
-        <h2>{{ campaign.start|date:"j. F" }} - {{ campaign.end|date:"j. F" }}</h2>
+        <h2>{{ campaign.start|date:"MONTH_DAY_FORMAT" }} - {{ campaign.end|date:"MONTH_DAY_FORMAT" }}</h2>
       </div>
     </div>
   </div>
