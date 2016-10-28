@@ -17,7 +17,7 @@ class VolunteerParticipantInline(admin.TabularInline):
     raw_id_fields = ['volunteer']
 
     class Media:
-        js = ['campaigns/make-volunteer-readonly.js']
+        js = ['campaigns/make-rawid-readonly.js']
 
 
 class CampaignLocationShiftAdmin(admin.ModelAdmin):
