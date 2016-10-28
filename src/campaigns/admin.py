@@ -21,7 +21,7 @@ class VolunteerParticipantInline(admin.TabularInline):
 
 
 class CampaignLocationShiftAdmin(admin.ModelAdmin):
-    list_display = ['campaign', 'location', 'day', 'start', 'end',
+    list_display = ['location', 'day', 'start', 'end',
             'total_places', 'registered_volunteers']
     list_filter = ['campaign', 'location']
     search_fields = ['location__name', 'volunteers__name']

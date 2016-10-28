@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
+from django.utils.formats import date_format
 
 from tinymce.models import HTMLField
 
@@ -51,7 +52,7 @@ class CampaignLocationShift(models.Model):
     def __unicode__(self):
         campaign = unicode(self.campaign)
         location = unicode(self.location)
-        day = unicode(self.day)
-        start = unicode(self.start)
-        end = unicode(self.end)
-        return u'{campaign} {location} {day} {start}-{end} vahetus'.format(**locals())
+        day = date_format(self.day, 'MONTH_DAY_FORMAT')
+        start = date_format(self.start, 'TIME_FORMAT')
+        end = date_format(self.end, 'TIME_FORMAT')
+        return u'{location} | {day}, {start}-{end} vahetus'.format(**locals())
