@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-28 21:04+0300\n"
+"POT-Creation-Date: 2016-10-28 20:41+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,30 +16,57 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\volunteers\apps.py:7 .\volunteers\models.py:14
+#: .\volunteers\admin.py:8
+msgid "Campaign shift"
+msgstr ""
+
+#: .\volunteers\admin.py:9
+msgid "Campaign shifts"
+msgstr ""
+
+#: .\volunteers\admin.py:19
+msgid "Group"
+msgstr "Grupp"
+
+#: .\volunteers\apps.py:7 .\volunteers\models.py:20
 msgid "Volunteers"
 msgstr "Vabatahtlikud"
 
-#: .\volunteers\models.py:6
+#: .\volunteers\models.py:7
 msgid "First name"
 msgstr "Eesnimi"
 
-#: .\volunteers\models.py:7
-msgid "Last name"
-msgstr "Perenimi"
-
 #: .\volunteers\models.py:8
+msgid "Last name"
+msgstr "Perekonnanimi"
+
+#: .\volunteers\models.py:9
 msgid "Age"
 msgstr "Vanus"
 
-#: .\volunteers\models.py:9
+#: .\volunteers\models.py:10
 msgid "Phone"
 msgstr "Telefon"
 
-#: .\volunteers\models.py:10
+#: .\volunteers\models.py:11
 msgid "E-mail"
 msgstr "E-mail"
 
+#: .\volunteers\models.py:12
+msgid "Is group representative"
+msgstr "On grupi esindaja"
+
 #: .\volunteers\models.py:13
+msgid "Group/organization name"
+msgstr "Grupi/asutuse nimi"
+
+#: .\volunteers\models.py:15
+msgid "Participant count"
+msgstr "Osalejate arv"
+
+#: .\volunteers\models.py:19
 msgid "Volunteer"
 msgstr "Vabatahtlik"
+
+#~ msgid "Is group"
+#~ msgstr "On grupp"
