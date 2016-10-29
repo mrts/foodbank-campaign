@@ -180,7 +180,7 @@
               {
                 pk: '{{ shift.pk }}',
                 when: '{{ shift.day }} {{ shift.start }} - {{ shift.end }}',
-                freePlaces: {{ shift.free_places }}
+                freePlaces: {{ shift.free_places|default_if_none:shift.total_places }}
               }{% if not forloop.last %},{% endif %}
             {% endfor %}
             ]
