@@ -21,7 +21,10 @@ class Volunteer(models.Model):
 
     @property
     def name(self):
-        return u'{first_name} {last_name}'.format(**self.__dict__)
+        template = u'{first_name} {last_name}'
+        if self.is_group:
+            template += u' (grupp, {participant_count} osalejat)'
+        return template.format(**self.__dict__)
 
     def __unicode__(self):
         return self.name
