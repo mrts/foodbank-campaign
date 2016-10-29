@@ -48,6 +48,7 @@ class CampaignLocationShift(models.Model):
         unique_together = ('campaign', 'location', 'day', 'start')
         verbose_name = _('Campaign shift')
         verbose_name_plural = _('Campaign shifts')
+        ordering = ['location__district__name', 'location__name', 'day', 'start']
 
     def __unicode__(self):
         campaign = unicode(self.campaign)
