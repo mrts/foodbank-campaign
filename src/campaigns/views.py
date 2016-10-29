@@ -26,6 +26,7 @@ class VolunteerRegistrationForm(forms.ModelForm):
     class Meta:
         model = Volunteer
         fields = '__all__' # TODO: careful with this
+        widgets = {'is_group': forms.HiddenInput()}
 
 
 def registration(request):
