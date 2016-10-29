@@ -75,10 +75,10 @@
           <div class="row">
             <div class="col-md-12">
               <ul class="nav nav-tabs red-url">
-                <li role="presentation" class="active">
+                <li role="presentation" id="navtab-self">
                   <a href="#">Registreeri ennast</a>
                 </li>
-                <li role="presentation">
+                <li role="presentation" id="navtab-group">
                   <a href="#">Registreeri grupp</a>
                 </li>
               </ul>
@@ -230,8 +230,32 @@
       }));
     }
 
+    function selectSelfAloneTab() {
+      $('form > div:nth-child(8)').hide();
+      $('form > div:nth-child(9)').hide();
+      $('#navtab-group').removeClass('active');
+      $('#navtab-self').addClass('active');
+      $('#id_is_group').val('False');
+    }
+
+    function selectGroupTab() {
+      $('form > div:nth-child(8)').show();
+      $('form > div:nth-child(9)').show();
+      $('#navtab-group').addClass('active');
+      $('#navtab-self').removeClass('active');
+      $('#id_is_group').val('True');
+    }
+
     $(document).ready(function () {
         $('#selectedShopsAndShifts').text(NOTHING_SELECTED);
+
+        $('#navtab-self a').click(selectSelfAloneTab);
+        $('#navtab-group a').click(selectGroupTab);
+        if ($('#id_is_group').val() === 'True') {
+          selectGroupTab();
+        } else {
+          selectSelfAloneTab();
+        }
 
         $('#countySelect > select').change(function () {
           var selection = $(this).val();
@@ -240,7 +264,7 @@
           renderSelectedShiftsInfo();
         });
 
-        // fill table with Harjumaa entries on first click
+        // fill table with first district entries on first click
         $('#chooseShopAndShiftButton').one('click', function() {
           fillShopAndShiftTable({{ districts.0.id }});
         });
