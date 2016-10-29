@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django import forms
 from django.http import HttpResponseBadRequest
-from django.db.models import Count, F
+from django.db.models import F, Sum, IntegerField
 from django.core import signing
 from django.utils.translation import ugettext as _
 
@@ -63,9 +63,12 @@ def registration(request):
                 .filter(location__campaignlocationshift__campaign=campaign)
                 .order_by('name')
                 .distinct())
+        # TODO: refactor annotate() to custom manager
         locations_and_shifts = (CampaignLocationShift.objects
                 .filter(campaign=campaign)
-                .annotate(free_places=F('total_places') - Count('volunteers')))
+                .annotate(free_places=F('total_places') -
+                                      Sum('volunteers__participant_count',
+                                          output_field=IntegerField())))
         context = {
             'campaign': campaign,
             'districts': list(districts),

@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
+from django.db.models import Sum
 
 from campaigns.models import Campaign, CampaignLocationShift
 
@@ -30,7 +31,8 @@ class CampaignLocationShiftAdmin(admin.ModelAdmin):
     inlines = [VolunteerParticipantInline]
 
     def registered_volunteers(self, obj):
-        return obj.volunteers.count()
+        count = obj.volunteers.aggregate(participants=Sum('participant_count'))
+        return count['participants']
     registered_volunteers.short_description = _('Registered volunteers')
 
 
