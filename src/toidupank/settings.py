@@ -143,3 +143,6 @@ TINYMCE_DEFAULT_CONFIG = {
 
 # Fix Estonian date formatting
 FORMAT_MODULE_PATH = 'toidupank.formats'
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = '/tmp/toidupank-email-messages'
