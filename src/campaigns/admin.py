@@ -25,7 +25,10 @@ class CampaignLocationShiftAdmin(admin.ModelAdmin):
     list_display = ['location', 'day', 'start', 'end',
             'total_places', 'registered_volunteers']
     list_filter = ['campaign', 'location']
-    search_fields = ['location__name', 'volunteers__name']
+    search_fields = ['location__name',
+                     'volunteers__first_name',
+                     'volunteers__last_name',
+                     'volunteers__group_name']
     date_hierarchy = 'day'
     exclude = ['volunteers']
     inlines = [VolunteerParticipantInline]
