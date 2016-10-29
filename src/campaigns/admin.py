@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from django.db.models import Sum
 
+import nested_admin
+
 from campaigns.models import Campaign, CampaignLocationShift
 
 
@@ -10,7 +12,7 @@ class CampaignAdmin(admin.ModelAdmin):
     ordering = ['-is_active', '-start']
 
 
-class VolunteerParticipantInline(admin.TabularInline):
+class VolunteerParticipantInline(nested_admin.NestedTabularInline):
     model = CampaignLocationShift.volunteers.through
     verbose_name = _('Participant')
     verbose_name_plural = _('Participants')

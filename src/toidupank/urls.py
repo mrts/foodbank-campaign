@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'', include('campaigns.urls')),
     url(r'^volunteers/', include('volunteers.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^nested_admin/', include('nested_admin.urls')),
 ]
