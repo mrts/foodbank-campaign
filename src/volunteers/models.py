@@ -23,7 +23,7 @@ class Volunteer(models.Model):
     def name(self):
         template = u'{first_name} {last_name}'
         if self.is_group:
-            template += u' (grupp, {participant_count} osalejat)'
+            template += u' ({group_name} grupp, {participant_count} osalejat)'
         return template.format(**self.__dict__)
 
     def __unicode__(self):
