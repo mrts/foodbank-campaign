@@ -1,12 +1,10 @@
 # coding: utf-8
 
-import string
-
 from django.shortcuts import get_object_or_404
-from django.template import engines
 from django.http import HttpResponse
 from django.core import signing
 
+from utils import string_template
 from campaigns.models import Campaign, CampaignLocationShift
 from .models import Volunteer
 
@@ -31,15 +29,6 @@ TEMPLATE = '''{% extends "campaigns/base.html" %}
 {% endblock body %}
 '''
 
-dummy='''
-      <p>Olete registreerunud järgmistele vahetustele:</p>
-      <ol>
-        {% for shift in volunteer.campaignlocationshift_set.all %}
-        <li>{{ shift }}</li>
-        {% endfor %}
-      </ol>
-'''
-
 def volunteer_detail(request, key):
     try:
         campaign = Campaign.objects.get(is_active=True)
@@ -48,13 +37,8 @@ def volunteer_detail(request, key):
 
     data = signing.loads(key)
     volunteer = get_object_or_404(Volunteer, pk=data['pk'])
-    context = {'volunteer': volunteer}
 
-    template = string.Template(TEMPLATE)
-    template = template.substitute({
-        'content': campaign.registration_confirmation_template
-    })
-    template = engines['django'].from_string(template)
-    content = template.render(context, request)
+    context = {'volunteer': volunteer}
+    content = string_template.render(TEMPLATE, campaign, request, context)
 
     return HttpResponse(content)
