@@ -17,6 +17,7 @@ class Campaign(models.Model):
     registration_form_header = HTMLField(_('Registration form header'))
     registration_form_footer = HTMLField(_('Registration form footer'))
     registration_form_right_panel = HTMLField(_('Registration form right panel'))
+    registration_confirmation_template = HTMLField(_('Registration confirmation template'))
 
     class Meta:
         unique_together = ('start', 'name')

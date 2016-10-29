@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-11 19:28+0300\n"
+"POT-Creation-Date: 2016-10-29 19:09+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,78 +16,82 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\campaigns\admin.py:14
+#: .\campaigns\admin.py:15
 msgid "Participant"
 msgstr "Osaleja"
 
-#: .\campaigns\admin.py:15
+#: .\campaigns\admin.py:16
 msgid "Participants"
 msgstr "Osalejad"
 
-#: .\campaigns\admin.py:34
+#: .\campaigns\admin.py:39
 msgid "Registered volunteers"
 msgstr "Registreerunud"
 
-#: .\campaigns\apps.py:7 .\campaigns\models.py:23
+#: .\campaigns\apps.py:7 .\campaigns\models.py:25
 msgid "Campaigns"
 msgstr "Kampaaniad"
 
-#: .\campaigns\models.py:12
+#: .\campaigns\models.py:13
 msgid "Name"
 msgstr "Nimi"
 
-#: .\campaigns\models.py:13 .\campaigns\models.py:40
+#: .\campaigns\models.py:14 .\campaigns\models.py:42
 msgid "Start"
 msgstr "Algus"
 
-#: .\campaigns\models.py:14 .\campaigns\models.py:41
+#: .\campaigns\models.py:15 .\campaigns\models.py:43
 msgid "End"
 msgstr "Lõpp"
 
-#: .\campaigns\models.py:15
+#: .\campaigns\models.py:16
 msgid "Is active"
 msgstr "Aktiivne"
 
-#: .\campaigns\models.py:16
+#: .\campaigns\models.py:17
 msgid "Registration form header"
 msgstr "Registreerumisvormi päis"
 
-#: .\campaigns\models.py:17
+#: .\campaigns\models.py:18
 msgid "Registration form footer"
 msgstr "Registreerumisvormi jalus"
 
-#: .\campaigns\models.py:18
+#: .\campaigns\models.py:19
 msgid "Registration form right panel"
 msgstr "Registreerumisvormi parem paneel"
 
-#: .\campaigns\models.py:22 .\campaigns\models.py:37
+#: .\campaigns\models.py:20
+msgid "Registration confirmation template"
+msgstr "Registreerumise kinnituse mall"
+
+#: .\campaigns\models.py:24 .\campaigns\models.py:39
 msgid "Campaign"
 msgstr "Kampaania"
 
-#: .\campaigns\models.py:38
+#: .\campaigns\models.py:40
 msgid "Location"
 msgstr "Asukoht"
 
-#: .\campaigns\models.py:39
+#: .\campaigns\models.py:41
 msgid "Day"
 msgstr "Kuupäev"
 
-#: .\campaigns\models.py:42
+#: .\campaigns\models.py:44
 msgid "Total places"
 msgstr "Kohti"
 
-#: .\campaigns\models.py:44
+#: .\campaigns\models.py:46
 msgid "Volunteers"
 msgstr "Vabatahtlikud"
 
-#: .\campaigns\models.py:48
+#: .\campaigns\models.py:50
 msgid "Campaign shift"
 msgstr "Kampaania vahetus"
 
-#: .\campaigns\models.py:49
+#: .\campaigns\models.py:51
 msgid "Campaign shifts"
 msgstr "Kampaania vahetused"
 
-#: .\campaigns\views.py:49
+#: .\campaigns\views.py:45
 msgid "No shift selected"
 msgstr "Vahetus valimata"
