@@ -7,9 +7,13 @@ def deploy():
     with cd(CODE_DIR):
         pull_changes()
         with prefix('. ../venv/bin/activate'):
+            update_dependencies()
             migrate_database()
             update_static_files()
             restart_app()
+
+def update_dependencies():
+    run('pip install --requirement=requirements.txt')
 
 def pull_changes():
     run('git pull')
