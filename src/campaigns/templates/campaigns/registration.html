@@ -7,6 +7,7 @@
     #chooseShopAndShiftButton { float: left; }
     #countySelect { margin-bottom: 24px; }
     .errorlist { color: #a94442; }
+    .error { color: #a94442; }
     .red-url a { color: #d9534f; font-weight: bold; }
   </style>
 {% endblock css %}
@@ -147,6 +148,7 @@
 {% endblock body %}
 
 {% block js %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/jquery.validate.min.js"></script>
   <script type="text/template" id="shopsAndShiftsTemplate">
     <% _.forEach(shopsAndShifts, function(item) { %>
       <tr>
@@ -194,6 +196,7 @@
       return $('#shopsAndShiftsTemplate').text();
     }
 
+    var isGroupRegistration = false;
     var selectedShifts = [];
     var NOTHING_SELECTED = 'Pood ja vahetus valimata';
     var BUTTON_NOTHING_SELECTED = 'Vali pood ja vahetus';
@@ -231,19 +234,64 @@
     }
 
     function selectSelfAloneTab() {
-      $('form > div:nth-child(8)').hide();
-      $('form > div:nth-child(9)').hide();
+      $('form > div:nth-child(3)').hide();
+      $('form > div:nth-child(4)').hide();
+      $('form > div:nth-child(7)').show();
       $('#navtab-group').removeClass('active');
       $('#navtab-self').addClass('active');
       $('#id_is_group').val('False');
+      isGroupRegistration = false;
     }
 
     function selectGroupTab() {
-      $('form > div:nth-child(8)').show();
-      $('form > div:nth-child(9)').show();
+      $('form > div:nth-child(3)').show();
+      $('form > div:nth-child(4)').show();
+      $('form > div:nth-child(7)').hide();
       $('#navtab-group').addClass('active');
       $('#navtab-self').removeClass('active');
       $('#id_is_group').val('True');
+      isGroupRegistration = true;
+    }
+
+    function setupFormValidation() {
+      $('form').validate({
+        ignore: [],
+        rules: {
+          selected_shifts: "required",
+          first_name: "required",
+          last_name: "required",
+          age: {
+            required: {
+              depends: function (element) { return !isGroupRegistration; }
+            }
+          },
+          phone: "required",
+          email: "required",
+          group_name: {
+            required: {
+              depends: function (element) { return isGroupRegistration; }
+            }
+          },
+          participant_count: {
+            required: {
+              depends: function (element) { return isGroupRegistration; }
+            }
+          }
+        },
+        messages: {
+          selected_shifts: "Palun valige pood ja vahetus",
+          first_name: "Palun sisestage eesnimi",
+          last_name: "Palun sisestage perekonnanimi",
+          age: "Palun sisestage vanus",
+          phone: "Palun sisestage telefon",
+          email: "Palun sisestage e-maili aadress",
+          group_name: "Palun sisestage grupi/asutuse nimi",
+          participant_count: "Palun sisestage osalejate arv"
+        },
+        submitHandler: function (form) {
+          form.submit();
+        }
+      });
     }
 
     $(document).ready(function () {
@@ -254,8 +302,11 @@
         if ($('#id_is_group').val() === 'True') {
           selectGroupTab();
         } else {
+          $('#id_participant_count').val('');
           selectSelfAloneTab();
         }
+
+        setupFormValidation();
 
         $('#countySelect > select').change(function () {
           var selection = $(this).val();
