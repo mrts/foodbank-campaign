@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
 from campaigns.admin import VolunteerParticipantInline
-from volunteers.models import Volunteer
+from volunteers.models import Volunteer, ShiftLeader
 
 class CampaignLocationShiftInline(VolunteerParticipantInline):
     verbose_name = _('Campaign shift')
@@ -21,3 +21,4 @@ class VolunteerAdmin(admin.ModelAdmin):
     inlines = [CampaignLocationShiftInline]
 
 admin.site.register(Volunteer, VolunteerAdmin)
+admin.site.register(ShiftLeader)

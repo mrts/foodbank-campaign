@@ -3,6 +3,25 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.validators import MinValueValidator
 
 
+class ShiftLeader(models.Model):
+    first_name = models.CharField(_('First name'), max_length=100)
+    last_name = models.CharField(_('Last name'), max_length=100)
+    phone = models.CharField(_('Phone'), max_length=100)
+    email = models.EmailField(_('E-mail'), unique=True)
+
+    class Meta:
+        verbose_name = _('Shift leader')
+        verbose_name_plural = _('Shift leaders')
+
+    @property
+    def name(self):
+        template = u'{first_name} {last_name}'
+        return template.format(**self.__dict__)
+
+    def __unicode__(self):
+        return self.name
+
+
 class Volunteer(models.Model):
     group_name = models.CharField(_('Group/organization name'), max_length=100,
             blank=True)

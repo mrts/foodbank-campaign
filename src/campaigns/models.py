@@ -6,7 +6,7 @@ from django.utils.formats import date_format
 from tinymce.models import HTMLField
 
 from locations.models import Location
-from volunteers.models import Volunteer
+from volunteers.models import Volunteer, ShiftLeader
 
 
 class Campaign(models.Model):
@@ -42,6 +42,8 @@ class CampaignLocationShift(models.Model):
     start = models.TimeField(_('Start'))
     end = models.TimeField(_('End'))
     total_places = models.IntegerField(_('Total places'))
+    shift_leader = models.ForeignKey(ShiftLeader, blank=True, null=True,
+            verbose_name=_('Shift leader'))
     volunteers = models.ManyToManyField(Volunteer, blank=True,
             verbose_name=_('Volunteers'))
 
