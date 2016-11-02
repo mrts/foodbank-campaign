@@ -15,7 +15,7 @@ class VolunteerAdmin(admin.ModelAdmin):
             'is_group', 'participant_count']
     fieldsets = [
             (None, {'fields': ('first_name', 'last_name', 'age', 'phone',
-                'email')}),
+                'email', 'notes')}),
             (_('Group'), {'fields': ('is_group', 'group_name', 'participant_count')})
     ]
     inlines = [CampaignLocationShiftInline]

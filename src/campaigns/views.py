@@ -29,7 +29,8 @@ class VolunteerRegistrationForm(forms.ModelForm):
 
     class Meta:
         model = Volunteer
-        fields = '__all__' # TODO: careful with this
+        fields = ['group_name', 'participant_count', 'first_name',
+                'last_name', 'age', 'phone', 'email', 'is_group']
         widgets = {'is_group': forms.HiddenInput()}
 
 

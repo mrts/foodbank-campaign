@@ -33,6 +33,7 @@ class Volunteer(models.Model):
     phone = models.CharField(_('Phone'), max_length=100)
     email = models.EmailField(_('E-mail'))
     is_group = models.BooleanField(_('Is group representative'), default=False)
+    notes = models.CharField(_('Notes'), max_length=200, blank=True)
 
     class Meta:
         verbose_name = _('Volunteer')
