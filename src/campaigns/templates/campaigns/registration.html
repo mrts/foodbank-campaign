@@ -243,6 +243,9 @@
       $('#navtab-group').removeClass('active');
       $('#navtab-self').addClass('active');
       $('#id_is_group').val('False');
+      if (!$('#id_participant_count').val()) {
+        $('#id_participant_count').val('1');
+      }
       isGroupRegistration = false;
     }
 
@@ -253,6 +256,9 @@
       $('#navtab-group').addClass('active');
       $('#navtab-self').removeClass('active');
       $('#id_is_group').val('True');
+      if ($('#id_participant_count').val() === '1') {
+        $('#id_participant_count').val('');
+      }
       isGroupRegistration = true;
     }
 
@@ -305,7 +311,6 @@
         if ($('#id_is_group').val() === 'True') {
           selectGroupTab();
         } else {
-          $('#id_participant_count').val('');
           selectSelfAloneTab();
         }
 
