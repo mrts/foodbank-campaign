@@ -1,3 +1,5 @@
 Django==1.9.10
 django-tinymce==2.3.0
 django-nested-admin==3.0.12
+flup
+# django-fastcgi manually with pip install git+http://github.com/NetAngels/django-fastcgi.git
