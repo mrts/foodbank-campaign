@@ -9,7 +9,7 @@ from campaigns.models import Campaign, CampaignLocationShift
 from .models import Volunteer
 
 
-TEMPLATE = '''{% extends "campaigns/base.html" %}
+TEMPLATE = u'''{% extends "campaigns/base.html" %}
 {% block title %}Tere {{ volunteer.name }}!{% endblock title %}
 
 {% block body %}
@@ -20,6 +20,13 @@ TEMPLATE = '''{% extends "campaigns/base.html" %}
     <div class="col-md-12">
       <div class="page-header">
         <h1>Tere {{ volunteer.name }}!</h1>
+        <p>Valitud vahetused:</p>
+        {% for shift in volunteer.shifts %}
+        <ul>
+        <li><b>{{ shift.detailed_info }}</b></li>
+        </ul>
+        {% endfor %}
+        <p>Käesolev info on saadetud ka sisestatud meiliaadressile.</p>
       </div>
       ${content}
     </div>
@@ -39,6 +46,7 @@ def volunteer_detail(request, key):
     volunteer = get_object_or_404(Volunteer, pk=data['pk'])
 
     context = {'volunteer': volunteer}
-    content = string_template.render(TEMPLATE, campaign, request, context)
+    content = string_template.render_campaign_registration_template(TEMPLATE,
+            campaign, request, context)
 
     return HttpResponse(content)

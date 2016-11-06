@@ -54,9 +54,22 @@ class CampaignLocationShift(models.Model):
         ordering = ['location__district__name', 'location__name', 'day', 'start']
 
     def __unicode__(self):
-        campaign = unicode(self.campaign)
         location = unicode(self.location)
         day = date_format(self.day, 'MONTH_DAY_FORMAT')
         start = date_format(self.start, 'TIME_FORMAT')
         end = date_format(self.end, 'TIME_FORMAT')
         return u'{location} | {day}, {start}-{end} vahetus'.format(**locals())
+
+    @property
+    def detailed_info(self):
+        template = u'aeg: {day}, {start}-{end} | koht: {location_name}, {location_address}'
+        if self.shift_leader:
+            shift_leader_name = self.shift_leader.name
+            shift_leader_phone = self.shift_leader.phone
+            template += u' | vahetuse vanem {shift_leader_name}, telefon {shift_leader_phone}'
+        location_name = unicode(self.location.name)
+        location_address = unicode(self.location.address)
+        day = date_format(self.day, 'MONTH_DAY_FORMAT')
+        start = date_format(self.start, 'TIME_FORMAT')
+        end = date_format(self.end, 'TIME_FORMAT')
+        return template.format(**locals())

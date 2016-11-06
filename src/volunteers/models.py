@@ -48,5 +48,9 @@ class Volunteer(models.Model):
             template += u' ({group_name} grupp, {participant_count} osalejat)'
         return template.format(**self.__dict__)
 
+    @property
+    def shifts(self):
+        return self.campaignlocationshift_set.order_by('day', 'start')
+
     def __unicode__(self):
         return self.name

@@ -54,8 +54,6 @@ def registration(request):
         if not shifts:
             form.add_error(None, _('No shift selected'))
         elif form_is_valid:
-            # FIXME: try to fetch by email and name first?
-            # or use UpdateView altogether
             volunteer = form.save()
             shifts = CampaignLocationShift.objects.filter(pk__in=shifts)
             volunteer.campaignlocationshift_set.add(*shifts)
@@ -67,6 +65,7 @@ def registration(request):
             volunteer_detail_url = reverse('volunteer_detail',
                     kwargs={'key': volunteer_key})
             campaign = Campaign.objects.get(is_active=True)
+            # TODO: prefetch related, use Django Debug Toolbar to debug
             _send_confirmation_email(request, campaign, volunteer,
                     volunteer_detail_url)
             return redirect(volunteer_detail_url)
@@ -94,25 +93,43 @@ def registration(request):
     except Campaign.DoesNotExist:
         return render(request, 'campaigns/no-active-campaign.html')
 
-EMAIL_TEMPLATE = '''{% extends "campaigns/base.html" %}
-{% block title %}Tere {{ volunteer.name }}!{% endblock title %}
+EMAIL_TXT_TEMPLATE = u'''
+Tere {{ volunteer.name }}!
 
-{% block body %}
+Oled registreerunud Toidupanga toidukogumispävadele järgmistele vahetustele:
 
-<div class="container">
+{% for shift in volunteer.shifts %}
+* {{ shift.detailed_info }}
+{% endfor %}
 
-  <div class="row">
-    <div class="col-md-12">
-      <div class="page-header">
-        <h1>Tere {{ volunteer.name }}!</h1>
-      </div>
-      <p>Link <a href="{{ volunteer_detail_url }}">registreerumisinfole</a>.</p>
-      ${content}
-    </div>
-  </div>
+Täpsem info on sõnumile lisatud HTML-formaadis ning veebis saadaval
+alljärgnevalt lingilt:
 
-</div> <!-- container -->
-{% endblock body %}
+{{ volunteer_detail_url }}
+
+Kohtumiseni toidukogumispäevadel!
+
+Tänades,
+Toidupanga meeskond
+'''
+
+EMAIL_HTML_TEMPLATE = u'''<html>
+<body>
+<h1>Tere {{ volunteer.name }}!</h1>
+
+<p>Valitud vahetused:</p>
+{% for shift in volunteer.shifts %}
+<ul>
+<li>{{ shift.detailed_info }}</li>
+</ul>
+{% endfor %}
+
+<p>Registreerumisinfo on saadaval ka <a href="{{ volunteer_detail_url }}">veebis</a>.</p>
+
+${content}
+
+</body>
+</html>
 '''
 def _send_confirmation_email(request, campaign, volunteer,
         volunteer_detail_url):
@@ -120,8 +137,10 @@ def _send_confirmation_email(request, campaign, volunteer,
         'volunteer': volunteer,
         'volunteer_detail_url': volunteer_detail_url
     }
-    content = string_template.render(EMAIL_TEMPLATE, campaign, request, context)
+    txt_message = string_template.render_django_template(EMAIL_TXT_TEMPLATE,
+            request, context)
+    html_message = string_template.render_campaign_registration_template(
+            EMAIL_HTML_TEMPLATE, campaign, request, context)
     send_mail(u'Toidukogumispäeva info vabatahtlikule',
-              u'Info on sõnumile lisatud HTML-formaadis',
-              'info@toidupank.ee', [volunteer.email],
-              fail_silently=False, html_message=content)
+              txt_message, 'info@toidupank.ee', [volunteer.email],
+              fail_silently=False, html_message=html_message)
