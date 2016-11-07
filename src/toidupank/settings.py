@@ -20,12 +20,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+# -> this *MUST BE OVERRIDEN* with settings_local in production
 SECRET_KEY = 'az^nl9k()cqys!z53nw!q_sit@yj-jwh2^td*2jc5uc6cfks6o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'osale.toidupank.ee',
+    'test-osale.toidupank.ee',
+    'uus-osale.toidupank.ee',
+]
 
 
 # Application definition
@@ -145,5 +150,13 @@ TINYMCE_DEFAULT_CONFIG = {
 # Fix Estonian date formatting
 FORMAT_MODULE_PATH = 'toidupank.formats'
 
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = '/tmp/toidupank-email-messages'
+EMAIL_BACKEND = 'django_sendmail_backend.backends.EmailBackend'
+
+try:
+    from .settings_local import *
+except ImportError:
+    pass
+
+# For testing email:
+# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+# EMAIL_FILE_PATH = '/tmp/toidupank-email-messages'
