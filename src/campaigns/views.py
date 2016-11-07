@@ -62,8 +62,9 @@ def registration(request):
                 'email': volunteer.email,
                 'pk': volunteer.pk,
             })
-            volunteer_detail_url = reverse('volunteer_detail',
-                    kwargs={'key': volunteer_key})
+            volunteer_detail_url = request.build_absolute_uri(
+                    reverse('volunteer_detail',
+                        kwargs={'key': volunteer_key}))
             campaign = Campaign.objects.get(is_active=True)
             # TODO: prefetch related, use Django Debug Toolbar to debug
             _send_confirmation_email(request, campaign, volunteer,
@@ -115,12 +116,12 @@ Toidupanga meeskond
 
 EMAIL_HTML_TEMPLATE = u'''<html>
 <body>
-<h1>Tere {{ volunteer.name }}!</h1>
+<h2>Tere {{ volunteer.name }}!</h2>
 
 <p>Valitud vahetused:</p>
 {% for shift in volunteer.shifts %}
 <ul>
-<li>{{ shift.detailed_info }}</li>
+<li><b>{{ shift.detailed_info }}</b></li>
 </ul>
 {% endfor %}
 
