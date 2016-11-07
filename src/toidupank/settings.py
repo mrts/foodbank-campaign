@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+import platform
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -130,11 +131,12 @@ USE_TZ = True
 
 HTDOCS = os.path.join(BASE_DIR, '..', 'htdocs')
 
-STATIC_URL  = '/static/media/'
+STATIC_URL  = '/media/'
 STATIC_ROOT = os.path.join(HTDOCS, 'static', 'media')
 
-MEDIA_URL   = '/static/uploads/'
-MEDIA_ROOT  = os.path.join(HTDOCS, 'static', 'uploads')
+# No need for uploads currently
+# MEDIA_URL   = '/static/uploads/'
+# MEDIA_ROOT  = os.path.join(HTDOCS, 'static', 'uploads')
 
 # Rich-text editor
 
@@ -151,12 +153,11 @@ TINYMCE_DEFAULT_CONFIG = {
 FORMAT_MODULE_PATH = 'toidupank.formats'
 
 EMAIL_BACKEND = 'django_sendmail_backend.backends.EmailBackend'
-
-try:
-    from .settings_local import *
-except ImportError:
-    pass
-
 # For testing email:
 # EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 # EMAIL_FILE_PATH = '/tmp/toidupank-email-messages'
+
+# Override settings in production environment
+PRODUCTION_HOSTNAME = 'not-ready-yet' # 'atria.elkdata.ee'
+if platform.node() == PRODUCTION_HOSTNAME:
+    from settings_production import *

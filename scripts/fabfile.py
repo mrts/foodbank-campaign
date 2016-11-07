@@ -1,7 +1,9 @@
-from fabric.api import run, cd, prefix
+from fabric.api import env, run, cd, prefix
 
-CODE_DIR = '/var/www/projects/toidupank/src'
+CODE_DIR = '~/django-projects/test-osale/foodbank-campaign/src'
 
+# for FreeBSD compatibility
+env.shell = '/bin/sh -c'
 
 def deploy():
     with cd(CODE_DIR):
@@ -25,4 +27,6 @@ def update_static_files():
     run('python manage.py collectstatic --noinput')
 
 def restart_app():
-    run('touch toidupank/wsgi.py')
+    run('../scripts/restart-fcgi.sh')
+    # for WSGI:
+    # run('touch toidupank/wsgi.py')
