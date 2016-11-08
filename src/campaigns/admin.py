@@ -20,7 +20,7 @@ class VolunteerParticipantInline(nested_admin.NestedTabularInline):
     raw_id_fields = ['volunteer']
 
     class Media:
-        js = ['campaigns/make-rawid-readonly.js']
+        js = ['campaigns/js/make-rawid-readonly.js']
 
 
 class CampaignLocationShiftAdmin(admin.ModelAdmin):
