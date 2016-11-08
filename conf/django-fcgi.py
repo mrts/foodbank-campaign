@@ -1,10 +1,8 @@
-#!/www/apache/domains/www.toidupank.ee/django-projects/test-osale/foodbank-campaign/venv/bin/python
-# ^--- NB! Python virtualenv path is hard-coded, no easy way to make it configurable.
 import sys, os
 
 APPNAME = "toidupank"
-PREFIX = "/www/apache/domains/www.toidupank.ee"
-APPDIR = PREFIX + "/django-projects/test-osale"
+
+APPDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 VENV_BIN_DIR = APPDIR + "/venv/bin"
 
 # Setup virtualenv
@@ -14,7 +12,7 @@ os.environ['VIRTUAL_ENV'] =  VENV_BIN_DIR
 os.environ['PYTHON_EGG_CACHE'] = VENV_BIN_DIR
 
 # Add site to Python path.
-sys.path.insert(0, APPDIR + '/foodbank-campaign/src')
+sys.path.insert(0, os.path.join(APPDIR, 'src'))
 
 # Set the DJANGO_SETTINGS_MODULE environment variable.
 os.environ['DJANGO_SETTINGS_MODULE'] = "%s.settings" % APPNAME
