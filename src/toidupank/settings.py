@@ -131,12 +131,11 @@ USE_TZ = True
 
 HTDOCS = os.path.join(BASE_DIR, '..', 'htdocs')
 
-STATIC_URL  = '/media/'
+STATIC_URL  = '/static/media/'
 STATIC_ROOT = os.path.join(HTDOCS, 'static', 'media')
 
-# No need for uploads currently
-# MEDIA_URL   = '/static/uploads/'
-# MEDIA_ROOT  = os.path.join(HTDOCS, 'static', 'uploads')
+MEDIA_URL   = '/static/uploads/'
+MEDIA_ROOT  = os.path.join(HTDOCS, 'static', 'uploads')
 
 # Rich-text editor
 

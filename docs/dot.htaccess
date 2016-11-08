@@ -1,5 +1,5 @@
 AddHandler fcgid-script .fcgi
 RewriteEngine On
-RewriteRule ^(media.*)$ $1 [QSA,L,PT]
+RewriteRule ^(static.*)$ $1 [QSA,L,PT]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ cgi-bin/django.fcgi/$1 [QSA,L]
