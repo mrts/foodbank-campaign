@@ -157,6 +157,8 @@ EMAIL_BACKEND = 'django_sendmail_backend.backends.EmailBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 # EMAIL_FILE_PATH = '/tmp/toidupank-email-messages'
 
+ADMIN_URL_PREFIX = 'haldus'
+
 # Override settings in production environment
 PRODUCTION_HOSTNAME = 'not-ready-yet' # 'atria.elkdata.ee'
 if platform.node() == PRODUCTION_HOSTNAME:
