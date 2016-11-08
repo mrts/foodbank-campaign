@@ -11,20 +11,12 @@
     .red-url a { color: #d9534f; font-weight: bold; }
   </style>
 {% endblock css %}
-{% block body %}
-
-<div class="container">
-
-  <div class="row">
-    <div class="col-md-12">
-      <div class="page-header">
+{% block header %}
         <h1>{{ campaign.name }}</h1>
         <h2>{{ campaign.start|date:"MONTH_DAY_FORMAT" }} - {{ campaign.end|date:"MONTH_DAY_FORMAT" }}</h2>
-      </div>
-    </div>
-  </div>
+{% endblock header %}
 
-  <div class="row">
+{% block content %}
     <div class="col-md-7">
 
       <div class="row">
@@ -145,10 +137,7 @@
     <div class="col-md-5">
       {{ campaign.registration_form_right_panel|safe }}
     </div>
-
-  </div> <!-- row -->
-</div> <!-- container -->
-{% endblock body %}
+{% endblock content %}
 
 {% block js %}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/jquery.validate.min.js"></script>

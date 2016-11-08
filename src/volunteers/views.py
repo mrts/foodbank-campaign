@@ -12,28 +12,22 @@ from .models import Volunteer
 TEMPLATE = u'''{% extends "campaigns/base.html" %}
 {% block title %}Tere {{ volunteer.name }}!{% endblock title %}
 
-{% block body %}
-
-<div class="container">
-
-  <div class="row">
-    <div class="col-md-12">
-      <div class="page-header">
+{% block header %}
         <h1>Tere {{ volunteer.name }}!</h1>
-        <p>Valitud vahetused:</p>
+{% endblock header %}
+
+{% block content %}
+    <div class="col-md-12">
+      <p>Valitud vahetused:</p>
         {% for shift in volunteer.shifts %}
         <ul>
         <li><b>{{ shift.detailed_info }}</b></li>
         </ul>
         {% endfor %}
-        <p>Käesolev info on saadetud ka sisestatud meiliaadressile.</p>
-      </div>
+      <p>Käesolev info on saadetud ka sisestatud meiliaadressile.</p>
       ${content}
     </div>
-  </div>
-
-</div> <!-- container -->
-{% endblock body %}
+{% endblock content %}
 '''
 
 def volunteer_detail(request, key):
