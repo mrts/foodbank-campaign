@@ -21,6 +21,7 @@ class Campaign(models.Model):
     start = models.DateField(_('Start'))
     end = models.DateField(_('End'))
     is_active = models.BooleanField(_('Is active'))
+    summary = models.CharField(_('Summary'), max_length=200)
     registration_form_header = HTMLField(_('Registration form header'))
     registration_form_footer = HTMLField(_('Registration form footer'))
     registration_form_right_panel = HTMLField(_('Registration form right panel'))
