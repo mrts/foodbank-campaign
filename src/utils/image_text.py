@@ -20,14 +20,15 @@ def draw_text_on_logo(line1, line2, output_filename):
     >>> output_filename = '../htdocs/static/generated/test.png'
     >>> draw_text_on_logo(line1, line2, output_filename)
     '''
-    font = ImageFont.truetype(FONT_FILE, 16)
+    font = ImageFont.truetype(FONT_FILE, 10)
     logo = Image.open(LOGO_FILE)
+    logo.thumbnail((120, 120))
 
     logo_height = logo.size[1]
     text_height = font.getsize(line1)[1]
-    left_border = 4
+    left_border = 3
     first_line_offset = 2
-    line_gap = 4
+    line_gap = 3
     expand = text_height * 2 + line_gap * 2 + first_line_offset
 
     canvas = Image.new('RGBA', (logo.size[0], logo.size[1] + expand), 'white')
@@ -41,8 +42,7 @@ def draw_text_on_logo(line1, line2, output_filename):
     second_line_offset = first_line_offset + line_gap + text_height
     draw.text((left_border, second_line_offset), line2, 'black', font=font)
 
-    canvas = ImageOps.expand(canvas, border=6, fill='white')
-    canvas.thumbnail((120, 120))
+    canvas = ImageOps.expand(canvas, border=2, fill='white')
 
     _save_file(canvas, output_filename)
 
