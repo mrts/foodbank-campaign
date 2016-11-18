@@ -1,12 +1,19 @@
+# coding: utf-8
+
+import os
+
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from django.utils.formats import date_format
+from django.utils.dateformat import DateFormat
+from django.conf import settings
 
 from tinymce.models import HTMLField
 
 from locations.models import Location
 from volunteers.models import Volunteer, ShiftLeader
+from utils.image_text import draw_text_on_logo
 
 
 class Campaign(models.Model):
@@ -33,6 +40,31 @@ class Campaign(models.Model):
                 .exclude(pk=self.pk) # works when pk is None, too
                 .exists()):
             raise ValidationError('Only one campaign can be active at a time')
+
+    def save(self, *args, **kwargs):
+        super(Campaign, self).save(*args, **kwargs)
+        self._generate_card_image()
+
+    @property
+    def card_image_url(self):
+        return settings.MEDIA_URL + self.card_image_name
+
+    @property
+    def card_image_name(self):
+        start, end = self._start_end_in_day_month_format('j-n')
+        return u'toidupank-logo-with-label-{start}-{end}.png'.format(**locals())
+
+    def _generate_card_image(self):
+        start, end = self._start_end_in_day_month_format('j.n')
+        line1 = u'TOIDUKOGUMISPÄEVAD'
+        line2 = u'{start} – {end}'.format(**locals())
+        output_filename = os.path.join(settings.MEDIA_ROOT, self.card_image_name)
+        draw_text_on_logo(line1, line2, output_filename)
+
+    def _start_end_in_day_month_format(self, day_month_format):
+        start = DateFormat(self.start)
+        end = DateFormat(self.end)
+        return start.format(day_month_format), end.format(day_month_format)
 
 
 class CampaignLocationShift(models.Model):
