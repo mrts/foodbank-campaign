@@ -42,6 +42,7 @@ def draw_text_on_logo(line1, line2, output_filename):
     draw.text((left_border, second_line_offset), line2, 'black', font=font)
 
     canvas = ImageOps.expand(canvas, border=6, fill='white')
+    canvas.thumbnail((120, 120))
 
     _save_file(canvas, output_filename)
 
