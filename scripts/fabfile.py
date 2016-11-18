@@ -18,7 +18,8 @@ def update_dependencies():
     run('pip install --requirement=requirements.txt')
 
 def pull_changes():
-    run('git pull')
+    run('git fetch')
+    run('git reset --hard origin/master')
 
 def migrate_database():
     run('python manage.py migrate')
