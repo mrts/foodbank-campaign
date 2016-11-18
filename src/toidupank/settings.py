@@ -159,6 +159,6 @@ EMAIL_BACKEND = 'django_sendmail_backend.backends.EmailBackend'
 ADMIN_URL_PREFIX = 'haldus'
 
 # Override settings in production environment
-PRODUCTION_HOSTNAME = 'not-ready-yet' # 'atria.elkdata.ee'
-if platform.node() == PRODUCTION_HOSTNAME:
-    from settings_production import *
+PRODUCTION_HOSTNAME = 'atria.elkdata.ee'
+if platform.node() == PRODUCTION_HOSTNAME and 'live-osale' in BASE_DIR:
+    from settings_live import *

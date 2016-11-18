@@ -3,3 +3,4 @@ venv
 *.swp
 db.sqlite*
 htdocs/static/
+settings_live.py
