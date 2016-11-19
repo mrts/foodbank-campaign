@@ -162,11 +162,16 @@
         <td>
           <% _.forEach(item.shifts, function(shift) { %>
             <div class="checkbox"><label>
+            <% if (shift.freePlaces > 0) { %>
             <input type="checkbox"
               data-pk='<%- shift.pk %>'
               data-description='<%- item.shop %>, <%- shift.when %>'
               onclick="handleShiftSelect(this)"> ${shift.when}<br>
             (${shift.freePlaces} vaba kohta)
+            <% } else { %>
+            <input type="checkbox" disabled="disabled"> ${shift.when}<br>
+            (kohad täidetud)
+            <% } %>
             </label></div>
           <% }); %>
         </td>
