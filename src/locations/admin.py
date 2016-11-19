@@ -30,9 +30,11 @@ class LocationAdmin(nested_admin.NestedModelAdmin):
     volunteers_count.short_description = _('Volunteers count')
 
     def free_places(self, obj):
-        return obj.campaignlocationshift_set.aggregate(
-                places=F('total_places') - Sum('volunteers__participant_count',
-                    output_field=IntegerField()))['places']
+        total_places = obj.campaignlocationshift_set.aggregate(total=Sum(
+            'total_places'))['total']
+        taken_places = obj.campaignlocationshift_set.aggregate(taken=Sum(
+            'volunteers__participant_count'))['taken']
+        return int(total_places or 0) - int(taken_places or 0)
     free_places.short_description = _('Free places')
 
 
