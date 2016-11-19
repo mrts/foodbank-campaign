@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-28 21:04+0300\n"
+"POT-Creation-Date: 2016-11-19 02:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,15 +16,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\locations\apps.py:7 .\locations\models.py:25
+#: .\locations\admin.py:30
+msgid "Volunteers count"
+msgstr "Registreerunuid"
+
+#: .\locations\admin.py:36
+msgid "Free places"
+msgstr "Vabu kohti"
+
+#: .\locations\apps.py:7 .\locations\models.py:26
 msgid "Locations"
 msgstr "Asukohad"
 
-#: .\locations\models.py:6 .\locations\models.py:17
+#: .\locations\models.py:6 .\locations\models.py:18
 msgid "Name"
 msgstr "Nimi"
 
-#: .\locations\models.py:9 .\locations\models.py:19
+#: .\locations\models.py:9 .\locations\models.py:20
 msgid "District"
 msgstr "Piirkond"
 
@@ -32,10 +40,10 @@ msgstr "Piirkond"
 msgid "Districts"
 msgstr "Piirkonnad"
 
-#: .\locations\models.py:20
+#: .\locations\models.py:21
 msgid "Address"
 msgstr "Aadress"
 
-#: .\locations\models.py:24
+#: .\locations\models.py:25
 msgid "Location"
 msgstr "Asukoht"
