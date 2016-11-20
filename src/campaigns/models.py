@@ -55,12 +55,15 @@ class Campaign(models.Model):
         start, end = self._start_end_in_day_month_format('j-n')
         return u'toidupank-logo-with-label-{start}-{end}.png'.format(**locals())
 
-    def _generate_card_image(self):
+    @property
+    def start_end_dates(self):
         start, end = self._start_end_in_day_month_format('j.n')
-        line1 = u'TOIDUKOGUMISPÄEVAD'
-        line2 = u'{start} – {end}'.format(**locals())
+        return u'{start} - {end}'.format(**locals())
+
+    def _generate_card_image(self):
+        title = u'TOIDUKOGUMISPÄEVAD'
         output_filename = os.path.join(settings.MEDIA_ROOT, self.card_image_name)
-        draw_text_on_logo(line1, line2, output_filename)
+        draw_text_on_logo(title, self.start_end_dates, output_filename)
 
     def _start_end_in_day_month_format(self, day_month_format):
         start = DateFormat(self.start)

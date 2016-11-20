@@ -1,16 +1,16 @@
 {% extends "campaigns/base.html" %}
-{% block title %}{{ campaign.name }}{% endblock title %}
+{% block title %}{{ campaign.name }} {{ campaign.start_end_dates }}{% endblock title %}
 {% block headmeta %}
   <meta name="description" content="{{ campaign.summary }}" />
 
-  <meta property="og:title" content="{{ campaign.name }}" />
+  <meta property="og:title" content="{{ campaign.name }} {{ campaign.start_end_dates }}" />
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
   <meta property="og:type" content="website" />
   <meta property="og:description" content="{{ campaign.summary }}" />
   <meta property="og:image" content="{{ request.build_absolute_uri|slice:':-1' }}{{ campaign.card_image_url }}" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="{{ campaign.name }}" />
+  <meta name="twitter:title" content="{{ campaign.name }} {{ campaign.start_end_dates }}" />
   <meta name="twitter:description" content="{{ campaign.summary }}" />
   <meta name="twitter:image" content="{{ request.build_absolute_uri|slice:':-1' }}{{ campaign.card_image_url }}" />
 {% endblock headmeta %}
