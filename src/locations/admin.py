@@ -6,6 +6,7 @@ import nested_admin
 
 from locations.models import District, Location
 from campaigns.models import CampaignLocationShift
+from coordinators.models import filter_by_district
 from campaigns.admin import VolunteerParticipantInline
 
 
@@ -14,6 +15,10 @@ class CampaignShiftInline(nested_admin.NestedTabularInline):
     exclude = ['volunteers']
     inlines = [VolunteerParticipantInline]
     extra = 0
+
+    def get_queryset(self, request):
+        qs = super(CampaignShiftInline, self).get_queryset(request)
+        return filter_by_district(qs, request.user, 'location__district')
 
 
 class LocationAdmin(nested_admin.NestedModelAdmin):
@@ -36,6 +41,10 @@ class LocationAdmin(nested_admin.NestedModelAdmin):
             'volunteers__participant_count'))['taken']
         return int(total_places or 0) - int(taken_places or 0)
     free_places.short_description = _('Free places')
+
+    def get_queryset(self, request):
+        qs = super(LocationAdmin, self).get_queryset(request)
+        return filter_by_district(qs, request.user, 'district')
 
 
 admin.site.register(District)

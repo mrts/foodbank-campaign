@@ -11,3 +11,11 @@ class Coordinator(models.Model):
     is_manager = models.BooleanField()
     district = models.ForeignKey(District, verbose_name=_('District'),
             blank=True, null=True)
+
+def filter_by_district(qs, user, lookup):
+    if user.is_superuser or not user.coordinator or user.coordinator.is_manager:
+        return qs
+    kwargs = {
+        lookup: user.coordinator.district
+    }
+    return qs.filter(**kwargs)

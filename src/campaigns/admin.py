@@ -5,6 +5,7 @@ from django.db.models import Sum
 import nested_admin
 
 from campaigns.models import Campaign, CampaignLocationShift
+from coordinators.models import filter_by_district
 
 
 class CampaignAdmin(admin.ModelAdmin):
@@ -21,6 +22,11 @@ class VolunteerParticipantInline(nested_admin.NestedTabularInline):
 
     class Media:
         js = ['campaigns/js/make-rawid-readonly.js']
+
+    def get_queryset(self, request):
+        qs = super(VolunteerParticipantInline, self).get_queryset(request)
+        return filter_by_district(qs, request.user,
+                'volunteer__campaignlocationshift__location__district')
 
 
 class CampaignLocationShiftAdmin(admin.ModelAdmin):
@@ -39,6 +45,10 @@ class CampaignLocationShiftAdmin(admin.ModelAdmin):
         count = obj.volunteers.aggregate(participants=Sum('participant_count'))
         return count['participants']
     registered_volunteers.short_description = _('Registered volunteers')
+
+    def get_queryset(self, request):
+        qs = super(CampaignLocationShiftAdmin, self).get_queryset(request)
+        return filter_by_district(qs, request.user, 'location__district')
 
 
 admin.site.register(Campaign, CampaignAdmin)

@@ -1,0 +1,23 @@
+[
+{
+    "model": "auth.group",
+    "pk": 1,
+    "fields": {
+        "name": "Koordinaatorid",
+        "permissions": [
+            34,
+            35,
+            36,
+            28,
+            29,
+            30,
+            37,
+            38,
+            39,
+            19,
+            20,
+            21
+        ]
+    }
+}
+]
