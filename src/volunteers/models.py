@@ -10,8 +10,7 @@ class ShiftLeader(models.Model):
     last_name = models.CharField(_('Last name'), max_length=100)
     phone = models.CharField(_('Phone'), max_length=100)
     email = models.EmailField(_('E-mail'), unique=True)
-    district = models.ForeignKey(District, verbose_name=_('District'),
-            blank=True, null=True)
+    district = models.ForeignKey(District, verbose_name=_('District'))
 
     class Meta:
         verbose_name = _('Shift leader')
