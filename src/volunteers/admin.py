@@ -31,5 +31,11 @@ class VolunteerAdmin(admin.ModelAdmin):
                 'campaignlocationshift__location__district')
 
 
+class ShiftLeaderAdmin(admin.ModelAdmin):
+    def get_queryset(self, request):
+        qs = super(ShiftLeaderAdmin, self).get_queryset(request)
+        return filter_by_district(qs, request.user, 'district')
+
+
 admin.site.register(Volunteer, VolunteerAdmin)
-admin.site.register(ShiftLeader)
+admin.site.register(ShiftLeader, ShiftLeaderAdmin)

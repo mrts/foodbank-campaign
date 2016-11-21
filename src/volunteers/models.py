@@ -2,12 +2,16 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import MinValueValidator
 
+from locations.models import District
+
 
 class ShiftLeader(models.Model):
     first_name = models.CharField(_('First name'), max_length=100)
     last_name = models.CharField(_('Last name'), max_length=100)
     phone = models.CharField(_('Phone'), max_length=100)
     email = models.EmailField(_('E-mail'), unique=True)
+    district = models.ForeignKey(District, verbose_name=_('District'),
+            blank=True, null=True)
 
     class Meta:
         verbose_name = _('Shift leader')
