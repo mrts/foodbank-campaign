@@ -13,7 +13,9 @@ class Coordinator(models.Model):
             blank=True, null=True)
 
 def filter_by_district(qs, user, lookup):
-    if user.is_superuser or not user.coordinator or user.coordinator.is_manager:
+    if (user.is_superuser
+            or not hasattr(user, 'coordinator')
+            or user.coordinator.is_manager):
         return qs
     kwargs = {
         lookup: user.coordinator.district
