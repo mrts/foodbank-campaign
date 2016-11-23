@@ -37,9 +37,13 @@ class VolunteerRegistrationForm(forms.ModelForm):
 def registration(request):
     if (request.method == 'POST' and request.POST
             and 'email' in request.POST and request.POST['email'].strip()
-            and 'group_name' in request.POST):
+            and 'group_name' in request.POST
+            and 'first_name' in request.POST
+            and 'last_name' in request.POST):
         volunteer = Volunteer.objects.filter(email=request.POST['email'],
-                group_name=request.POST['group_name'])
+                group_name=request.POST['group_name'],
+                first_name=request.POST['first_name'],
+                last_name=request.POST['last_name'])
         form = (VolunteerRegistrationForm(request.POST) if not volunteer else
                 VolunteerRegistrationForm(request.POST, instance=volunteer[0]))
         form_is_valid = form.is_valid()
@@ -58,7 +62,6 @@ def registration(request):
             shifts = CampaignLocationShift.objects.filter(pk__in=shifts)
             volunteer.campaignlocationshift_set.add(*shifts)
             volunteer_key = signing.dumps({
-                'group_name': volunteer.group_name,
                 'email': volunteer.email,
                 'pk': volunteer.pk,
             })

@@ -41,8 +41,8 @@ class Volunteer(models.Model):
     class Meta:
         verbose_name = _('Volunteer')
         verbose_name_plural = _('Volunteers')
-        unique_together = ['email', 'group_name']
-        index_together = ['email', 'group_name']
+        unique_together = ['email', 'group_name', 'first_name', 'last_name']
+        index_together = unique_together
 
     @property
     def name(self):
