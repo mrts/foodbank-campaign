@@ -4,3 +4,4 @@ venv
 db.sqlite*
 htdocs/static/
 settings_live.py
+settings_local.py

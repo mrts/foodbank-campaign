@@ -7,6 +7,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from django.utils.formats import date_format
 from django.utils.dateformat import DateFormat
+from django.utils.html import format_html
 from django.conf import settings
 
 from tinymce.models import HTMLField
@@ -98,14 +99,14 @@ class CampaignLocationShift(models.Model):
 
     @property
     def detailed_info(self):
-        template = u'aeg: {day}, {start}-{end} | koht: {location_name}, {location_address}'
+        template = u'aeg: {day}, {start}-{end}<br>koht: {location_name}, {location_address}'
         if self.shift_leader:
             shift_leader_name = self.shift_leader.name
             shift_leader_phone = self.shift_leader.phone
-            template += u' | vahetuse vanem {shift_leader_name}, telefon {shift_leader_phone}'
+            template += u'<br>vahetuse vanem: {shift_leader_name}, telefon {shift_leader_phone}'
         location_name = unicode(self.location.name)
         location_address = unicode(self.location.address)
         day = date_format(self.day, 'MONTH_DAY_FORMAT')
         start = date_format(self.start, 'TIME_FORMAT')
         end = date_format(self.end, 'TIME_FORMAT')
-        return template.format(**locals())
+        return format_html(template, **locals())
