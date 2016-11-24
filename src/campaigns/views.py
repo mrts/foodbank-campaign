@@ -21,17 +21,24 @@ from locations.models import District
 class VolunteerRegistrationForm(forms.ModelForm):
     selected_shifts = forms.CharField(widget = forms.HiddenInput())
 
+    class Meta:
+        model = Volunteer
+        fields = ['group_name', 'participant_count', 'first_name',
+                'last_name', 'age', 'phone', 'email', 'is_group']
+        widgets = {'is_group': forms.HiddenInput()}
+
     # add Bootstrap classes
     def __init__(self, *args, **kwargs):
         super(VolunteerRegistrationForm, self).__init__(*args, **kwargs)
         for field in iter(self.fields):
             self.fields[field].widget.attrs.update({'class': 'form-control'})
 
-    class Meta:
-        model = Volunteer
-        fields = ['group_name', 'participant_count', 'first_name',
-                'last_name', 'age', 'phone', 'email', 'is_group']
-        widgets = {'is_group': forms.HiddenInput()}
+    def clean(self):
+        cleaned_data = super(VolunteerRegistrationForm, self).clean()
+        participant_count = cleaned_data.get('participant_count')
+        is_group = cleaned_data.get('is_group')
+        if not is_group and participant_count > 1:
+            cleaned_data['participant_count'] = 1
 
 
 def registration(request):
