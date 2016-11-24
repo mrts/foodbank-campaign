@@ -1,3 +1,5 @@
+from django.db import models
+from django.forms.widgets import Textarea
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
@@ -23,6 +25,12 @@ class VolunteerAdmin(admin.ModelAdmin):
                 'email', 'notes')}),
             (_('Group'), {'fields': ('is_group', 'group_name', 'participant_count')})
     ]
+    formfield_overrides = {
+            models.TextField: {'widget': Textarea(attrs={
+                'rows': '3',
+                'cols': '40',
+            })},
+    }
     inlines = [CampaignLocationShiftInline]
 
     def get_queryset(self, request):
