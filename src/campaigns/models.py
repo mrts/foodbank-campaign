@@ -13,7 +13,7 @@ from django.conf import settings
 from tinymce.models import HTMLField
 
 from locations.models import Location
-from volunteers.models import Volunteer, ShiftLeader
+from volunteers.models import Volunteer
 from utils.image_text import draw_text_on_logo
 
 
@@ -79,8 +79,8 @@ class CampaignLocationShift(models.Model):
     start = models.TimeField(_('Start'))
     end = models.TimeField(_('End'))
     total_places = models.IntegerField(_('Total places'))
-    shift_leader = models.ForeignKey(ShiftLeader, blank=True, null=True,
-            verbose_name=_('Shift leader'))
+    shift_leader = models.ForeignKey(Volunteer, blank=True, null=True,
+            verbose_name=_('Shift leader'), related_name='shift_leader')
     volunteers = models.ManyToManyField(Volunteer, blank=True,
             verbose_name=_('Volunteers'))
 

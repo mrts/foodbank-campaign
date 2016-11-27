@@ -22,7 +22,7 @@ def pull_changes():
     run('git reset --hard origin/master')
 
 def migrate_database():
-    run('python manage.py migrate')
+    run('python manage.py migrate --noinput')
 
 def update_static_files():
     run('python manage.py collectstatic --noinput')

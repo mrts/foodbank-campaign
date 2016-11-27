@@ -3,7 +3,7 @@ from django.forms.widgets import Textarea
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from volunteers.models import Volunteer, ShiftLeader
+from volunteers.models import Volunteer
 from coordinators.models import filter_by_district
 from campaigns.admin import VolunteerParticipantInline
 
@@ -39,11 +39,5 @@ class VolunteerAdmin(admin.ModelAdmin):
                 'campaignlocationshift__location__district')
 
 
-class ShiftLeaderAdmin(admin.ModelAdmin):
-    def get_queryset(self, request):
-        qs = super(ShiftLeaderAdmin, self).get_queryset(request)
-        return filter_by_district(qs, request.user, 'district')
-
 
 admin.site.register(Volunteer, VolunteerAdmin)
-admin.site.register(ShiftLeader, ShiftLeaderAdmin)
