@@ -22,7 +22,8 @@ class VolunteerParticipantInline(nested_admin.NestedTabularInline):
     show_change_link = True
 
     class Media:
-        js = ['campaigns/js/make-rawid-readonly.js']
+        # js = ['campaigns/js/make-rawid-readonly.js']
+        css = {'all': ['campaigns/css/hide-rawid.css']}
 
 
 class CampaignLocationShiftAdmin(admin.ModelAdmin):
