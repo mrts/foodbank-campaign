@@ -13,25 +13,39 @@
 <p>{% for location in locations %}{{ location.name }}, {% endfor %}</p>
 
 <h2>Vahetused ja vabatahtlikud</h2>
-<ol>
 {% for location in locations %}
-  <li>{{ location.name }}</li>
-  <ol>
+<h3>{{ location.name }}</h3>
+
     {% for shift in location.campaignlocationshift_set.all %}
-    <li>{{ shift.day }}, {{ shift.start }} - {{ shift.end }}</li>
+    <h4>{{ shift.day }}, {{ shift.start }} - {{ shift.end }}</h4>
       <p>Vahetuse vanem: {{ shift.shift_leader|default:"-" }}</p></p>
       <p>Vabatahtlikud:</p>
-      <ol>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Kohal?</th>
+            <th>Nimi</th>
+            <th>Telefon</th>
+            <th>E-mail</th>
+            <th>Vanus</th>
+            <th>Märkmed</th>
+          </tr>
+        </thead>
+        <tbody>
         {% for volunteer in shift.volunteers.all %}
-        <li>{{ volunteer }}, tel: {{ volunteer.phone }},
-        email: {{ volunteer.email }}, vanus: {{ volunteer.age|default:"-" }},
-        märkmed: {{ volunteer.public_notes|default:"-" }}</li>
+          <tr>
+            <td>☐</td>
+            <td>{{ volunteer }}</td>
+            <td>{{ volunteer.phone }}</td>
+            <td>{{ volunteer.email }}</td>
+            <td>{{ volunteer.age|default:"-" }}</td>
+            <td>{{ volunteer.public_notes|default:"-" }}</td>
+          </tr>
         {% endfor %}
-      </ol>
+        </tbody>
+      </table>
     {% endfor %}
-  </ol>
 {% endfor %}
-</ol>
 
 </div>
 </div>
