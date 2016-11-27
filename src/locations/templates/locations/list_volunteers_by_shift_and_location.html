@@ -25,7 +25,7 @@
         {% for volunteer in shift.volunteers.all %}
         <li>{{ volunteer }}, tel: {{ volunteer.phone }},
         email: {{ volunteer.email }}, vanus: {{ volunteer.age|default:"-" }},
-        märkmed: {{ volunteer.notes|default:"-" }}</li>
+        märkmed: {{ volunteer.public_notes|default:"-" }}</li>
         {% endfor %}
       </ol>
     {% endfor %}

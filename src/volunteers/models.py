@@ -17,6 +17,7 @@ class Volunteer(models.Model):
     email = models.EmailField(_('E-mail'))
     is_group = models.BooleanField(_('Is group representative'), default=False)
     notes = models.TextField(_('Notes'), blank=True)
+    public_notes = models.TextField(_('Public notes'), blank=True)
 
     class Meta:
         verbose_name = _('Volunteer')

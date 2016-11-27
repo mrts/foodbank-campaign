@@ -22,12 +22,12 @@ class VolunteerAdmin(admin.ModelAdmin):
             'is_group', 'participant_count']
     fieldsets = [
             (None, {'fields': ('first_name', 'last_name', 'age', 'phone',
-                'email', 'notes')}),
+                'email', 'notes', 'public_notes')}),
             (_('Group'), {'fields': ('is_group', 'group_name', 'participant_count')})
     ]
     formfield_overrides = {
             models.TextField: {'widget': Textarea(attrs={
-                'rows': '3',
+                'rows': '2',
                 'cols': '40',
             })},
     }
