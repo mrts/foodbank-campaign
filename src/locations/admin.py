@@ -4,12 +4,13 @@ from django.utils.translation import ugettext_lazy as _
 
 import nested_admin
 
+from .models import District, Location
 from campaigns.models import CampaignLocationShift
 from coordinators.models import filter_by_district
-from locations.models import District, Location
 
 from campaigns.admin import VolunteerParticipantInline
 
+from .admin_actions import list_volunteers_by_shift_and_location
 
 class CampaignShiftInline(nested_admin.NestedTabularInline):
     model = CampaignLocationShift
@@ -28,6 +29,7 @@ class LocationAdmin(nested_admin.NestedModelAdmin):
     inlines = [CampaignShiftInline]
     list_display = ['name', 'volunteers_count', 'free_places']
     save_on_top = True
+    actions = [list_volunteers_by_shift_and_location]
 
     def volunteers_count(self, obj):
         return obj.campaignlocationshift_set.aggregate(
