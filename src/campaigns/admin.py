@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from django.db.models import Sum
@@ -6,6 +7,7 @@ import nested_admin
 
 from campaigns.models import Campaign, CampaignLocationShift
 from coordinators.models import filter_by_district
+from volunteers.models import Volunteer
 
 
 class CampaignAdmin(admin.ModelAdmin):
@@ -26,7 +28,14 @@ class VolunteerParticipantInline(nested_admin.NestedTabularInline):
         css = {'all': ['campaigns/css/hide-rawid.css']}
 
 
+class CampaignLocationShiftForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(CampaignLocationShiftForm, self).__init__(*args, **kwargs)
+        self.fields['shift_leader'].queryset = Volunteer.objects.filter(campaignlocationshift=self.instance)
+
+
 class CampaignLocationShiftAdmin(admin.ModelAdmin):
+    form = CampaignLocationShiftForm
     list_display = ['location', 'day', 'start', 'end',
             'total_places', 'registered_volunteers']
     list_filter = ['campaign', 'location']
