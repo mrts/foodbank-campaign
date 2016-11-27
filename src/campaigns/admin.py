@@ -19,14 +19,10 @@ class VolunteerParticipantInline(nested_admin.NestedTabularInline):
     verbose_name_plural = _('Participants')
     extra = 0
     raw_id_fields = ['volunteer']
+    show_change_link = True
 
     class Media:
         js = ['campaigns/js/make-rawid-readonly.js']
-
-    def get_queryset(self, request):
-        qs = super(VolunteerParticipantInline, self).get_queryset(request)
-        return filter_by_district(qs, request.user,
-                'volunteer__campaignlocationshift__location__district')
 
 
 class CampaignLocationShiftAdmin(admin.ModelAdmin):
