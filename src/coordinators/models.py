@@ -23,4 +23,4 @@ def filter_by_district(qs, user, lookup):
     kwargs = {
         lookup: user.coordinator.district
     }
-    return qs.filter(**kwargs)
+    return qs.filter(**kwargs).distinct()
