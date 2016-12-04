@@ -8,11 +8,15 @@ from .models import District, Location
 from campaigns.models import CampaignLocationShift
 from coordinators.models import filter_by_district
 
-from campaigns.admin import VolunteerParticipantInline
+from campaigns.admin import (
+    VolunteerParticipantInline,
+    CampaignLocationShiftForm
+)
 
 from .admin_actions import list_volunteers_by_shift_and_location
 
 class CampaignShiftInline(nested_admin.NestedTabularInline):
+    form = CampaignLocationShiftForm
     model = CampaignLocationShift
     fields = ['day', 'start', 'end', 'total_places', 'shift_leader']
     readonly_fields = ['day', 'start', 'end', 'total_places']
