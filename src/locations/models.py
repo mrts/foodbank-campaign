@@ -19,6 +19,8 @@ class Location(models.Model):
 
     district = models.ForeignKey(District, verbose_name=_('District'))
     address = models.CharField(_('Address'), max_length=255)
+    contact_person = models.CharField(_('Contact person'), max_length=255,
+            blank=True)
 
     class Meta:
         unique_together = ('district', 'name')
