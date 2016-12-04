@@ -4,6 +4,10 @@ from django.utils.translation import ugettext_lazy as _
 
 class District(models.Model):
     name = models.CharField(_('Name'), max_length=255, unique=True)
+    send_thank_you_email = models.BooleanField(_("Send 'Thank You' email"),
+        default=False)
+    thank_you_email_template = models.TextField(_("'Thank You' email message"),
+        blank=True)
 
     class Meta:
         verbose_name = _('District')
