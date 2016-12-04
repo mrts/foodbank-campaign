@@ -2,11 +2,13 @@
 {% block title %}Toidukogumispäevadel osalejad{% endblock title %}
 {% block css %}
 <style>
-@media print {
-  div { float: none !important; }
-  table { float: none !important; }
-  h3 { page-break-before: always; }
-}
+  @media print {
+    div { float: none !important; }
+    table { float: none !important; }
+    h3 { page-break-before: always; }
+  }
+
+  .notes-wide { width: 450px; }
 </style>
 {% endblock css %}
 {% block logo %}{% endblock logo %}
@@ -33,9 +35,8 @@
             <th>Kohal?</th>
             <th>Nimi</th>
             <th>Telefon</th>
-            <th>E-mail</th>
             <th>Vanus</th>
-            <th>Märkmed</th>
+            <th class="notes-wide">Märkmed</th>
           </tr>
         </thead>
         <tbody>
@@ -45,9 +46,8 @@
             <td>☐</td>
             <td>{{ volunteer }}</td>
             <td>{{ volunteer.phone }}</td>
-            <td>{{ volunteer.email }}</td>
             <td>{{ volunteer.age }}</td>
-            <td>{{ volunteer.public_notes }}<br/>{{ participation.shift_public_notes }}</td>
+            <td class="notes-wide">{% if volunteer.public_notes %}{{ volunteer.public_notes }}<br/>{% endif %}{{ participation.shift_public_notes }}</td>
           </tr>
         {% endwith %}
         {% endfor %}
