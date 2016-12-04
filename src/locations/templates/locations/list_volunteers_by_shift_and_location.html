@@ -39,15 +39,17 @@
           </tr>
         </thead>
         <tbody>
-        {% for volunteer in shift.volunteers.all %}
+        {% for participation in shift.campaignlocationshiftparticipation_set.all %}
+        {% with volunteer=participation.volunteer %}
           <tr>
             <td>☐</td>
             <td>{{ volunteer }}</td>
             <td>{{ volunteer.phone }}</td>
             <td>{{ volunteer.email }}</td>
-            <td>{{ volunteer.age|default:"-" }}</td>
-            <td>{{ volunteer.public_notes|default:"-" }}</td>
+            <td>{{ volunteer.age }}</td>
+            <td>{{ volunteer.public_notes }}<br/>{{ participation.shift_public_notes }}</td>
           </tr>
+        {% endwith %}
         {% endfor %}
         </tbody>
       </table>
