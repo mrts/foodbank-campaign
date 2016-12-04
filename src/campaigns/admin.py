@@ -1,11 +1,17 @@
 from django import forms
+from django.forms.widgets import Textarea
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
+from django.db import models
 from django.db.models import Sum
 
 import nested_admin
 
-from campaigns.models import Campaign, CampaignLocationShift
+from campaigns.models import (
+    Campaign,
+    CampaignLocationShift,
+    CampaignLocationShiftParticipation
+)
 from coordinators.models import filter_by_district
 from volunteers.models import Volunteer
 
@@ -16,12 +22,18 @@ class CampaignAdmin(admin.ModelAdmin):
 
 
 class VolunteerParticipantInline(nested_admin.NestedTabularInline):
-    model = CampaignLocationShift.volunteers.through
+    model = CampaignLocationShiftParticipation
     verbose_name = _('Participant')
     verbose_name_plural = _('Participants')
     extra = 0
     raw_id_fields = ['volunteer']
     show_change_link = True
+    formfield_overrides = {
+            models.TextField: {'widget': Textarea(attrs={
+                'rows': '2',
+                'cols': '40',
+            })},
+    }
 
     class Media:
         # js = ['campaigns/js/make-rawid-readonly.js']

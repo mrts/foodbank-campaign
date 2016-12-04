@@ -11,12 +11,13 @@ from campaigns.admin import VolunteerParticipantInline
 class CampaignLocationShiftInline(VolunteerParticipantInline):
     verbose_name = _('Campaign shift')
     verbose_name_plural = _('Campaign shifts')
-    raw_id_fields = ['campaignlocationshift']
+    raw_id_fields = ['shift']
     # get_queryset is inherited from VolunteerParticipantInline,
     # but filtering seems to fail...
 
 
 class VolunteerAdmin(admin.ModelAdmin):
+    save_on_top = True
     search_fields = ['first_name', 'last_name', 'email', 'phone']
     list_display = ['first_name', 'last_name', 'email', 'phone', 'age',
             'is_group', 'participant_count']

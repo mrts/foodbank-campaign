@@ -82,6 +82,7 @@ class CampaignLocationShift(models.Model):
     shift_leader = models.ForeignKey(Volunteer, blank=True, null=True,
             verbose_name=_('Shift leader'), related_name='shift_leader')
     volunteers = models.ManyToManyField(Volunteer, blank=True,
+            through='CampaignLocationShiftParticipation',
             verbose_name=_('Volunteers'))
 
     class Meta:
@@ -110,3 +111,11 @@ class CampaignLocationShift(models.Model):
         start = date_format(self.start, 'TIME_FORMAT')
         end = date_format(self.end, 'TIME_FORMAT')
         return format_html(template, **locals())
+
+class CampaignLocationShiftParticipation(models.Model):
+    volunteer = models.ForeignKey(Volunteer, on_delete=models.CASCADE,
+            verbose_name=_('Volunteer'))
+    shift = models.ForeignKey(CampaignLocationShift, on_delete=models.CASCADE,
+            verbose_name=_('Shift'))
+    shift_public_notes = models.TextField(_('Shift public notes'), blank=True)
+    was_present = models.BooleanField(_('Was present'), default=False)
