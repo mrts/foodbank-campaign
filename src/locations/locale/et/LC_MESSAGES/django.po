@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-04 13:11+0200\n"
+"POT-Creation-Date: 2016-12-04 14:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,6 +23,10 @@ msgstr "Registreerunuid"
 #: .\admin.py:45
 msgid "Free places"
 msgstr "Vabu kohti"
+
+#: .\admin_actions.py:8
+msgid "List of volunteers by location and shift"
+msgstr "Asukohtade, vahetuste ja vabatahtlike koondnimekiri printimiseks"
 
 #: .\apps.py:7 .\models.py:28
 msgid "Locations"

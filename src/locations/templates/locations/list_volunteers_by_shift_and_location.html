@@ -1,24 +1,31 @@
 {% extends "campaigns/base.html" %}
 {% block title %}Toidukogumispäevadel osalejad{% endblock title %}
-{% block header %}
-        <h1>Toidukogumispäevadel osalejad</h1>
-{% endblock header %}
-
+{% block css %}
+<style>
+@media print {
+  div { float: none !important; }
+  table { float: none !important; }
+  h3 { page-break-before: always; }
+}
+</style>
+{% endblock css %}
+{% block logo %}{% endblock logo %}
 {% block content %}
-<div class="container">
-<div class="row">
 <div class="col-md-9">
 
-<h2>Valitud asukohad</h2>
-<p>{% for location in locations %}{{ location.name }}, {% endfor %}</p>
-
-<h2>Vahetused ja vabatahtlikud</h2>
 {% for location in locations %}
-<h3>{{ location.name }}</h3>
-
-    {% for shift in location.campaignlocationshift_set.all %}
-    <h4>{{ shift.day }}, {{ shift.start }} - {{ shift.end }}</h4>
-      <p>Vahetuse vanem: {{ shift.shift_leader|default:"-" }}</p></p>
+{% regroup location.campaignlocationshift_set.all by day as day_shifts %}
+  {% for day in day_shifts %}
+  <h3>{{ day.list.0.campaign.name }}, {{ day.grouper }}</h3>
+  <h4>{{ location.name }}, {{ location.address }}</h4>
+    {% if location.contact_person %}
+    <p>Kontaktisik: {{ location.contact_person }}</p>
+    {% endif %}
+    {% for shift in day.list %}
+    <h4>Vahetus: {{ shift.start }} - {{ shift.end }}</h4>
+      {% if shift.shift_leader %}
+      <p>Vahetuse vanem: {{ shift.shift_leader }}</p>
+      {% endif %}
       <p>Vabatahtlikud:</p>
       <table class="table">
         <thead>
@@ -45,9 +52,8 @@
         </tbody>
       </table>
     {% endfor %}
+  {% endfor %}
 {% endfor %}
+</div>
 
-</div>
-</div>
-</div>
 {% endblock content %}
