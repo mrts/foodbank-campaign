@@ -52,6 +52,11 @@ class LocationAdmin(nested_admin.NestedModelAdmin):
         qs = super(LocationAdmin, self).get_queryset(request)
         return filter_by_district(qs, request.user, 'district')
 
+    def get_actions(self, request):
+        actions = super(LocationAdmin, self).get_actions(request)
+        del actions['delete_selected']
+        return actions
+
 
 admin.site.register(District)
 admin.site.register(Location, LocationAdmin)
