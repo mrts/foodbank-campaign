@@ -1,6 +1,12 @@
 def get_coordinators_group(apps):
+    return get_group(apps, 'Koordinaatorid')
+
+def get_administrators_group(apps):
+    return get_group(apps, 'Administraatorid')
+
+def get_group(apps, name):
     Group = apps.get_model('auth', 'Group')
-    return Group.objects.get(name='Koordinaatorid')
+    return Group.objects.get(name=name)
 
 def get_permissions(apps, *args):
     Permission = apps.get_model('auth', 'Permission')
