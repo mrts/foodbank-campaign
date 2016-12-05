@@ -13,7 +13,9 @@ from django.utils.translation import ugettext as _
 from django.core.mail import send_mail
 
 from utils import string_template
-from campaigns.models import Campaign, CampaignLocationShift
+from campaigns.models import (
+    Campaign, CampaignLocationShift, CampaignLocationShiftParticipation
+)
 from volunteers.models import Volunteer
 from locations.models import District
 
@@ -67,7 +69,9 @@ def registration(request):
         elif form_is_valid:
             volunteer = form.save()
             shifts = CampaignLocationShift.objects.filter(pk__in=shifts)
-            volunteer.campaignlocationshift_set.add(*shifts)
+            for shift in shifts:
+                CampaignLocationShiftParticipation.objects.update_or_create(
+                        shift=shift, volunteer=volunteer)
             volunteer_key = signing.dumps({
                 'email': volunteer.email,
                 'pk': volunteer.pk,

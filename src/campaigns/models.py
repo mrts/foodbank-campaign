@@ -119,3 +119,6 @@ class CampaignLocationShiftParticipation(models.Model):
             verbose_name=_('Shift'))
     shift_public_notes = models.TextField(_('Shift public notes'), blank=True)
     was_present = models.BooleanField(_('Was present'), default=False)
+
+    class Meta:
+        unique_together = ('volunteer', 'shift')
