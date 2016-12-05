@@ -20,6 +20,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('auth', '0001_initial'),
+        ('campaigns', '0014_campaignlocationshiftparticipation'),
         ('coordinators', '0003_auto_20161205_0035'),
     ]
 
