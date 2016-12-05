@@ -1,3 +1,5 @@
+# coding: utf-8
+
 from django import forms
 from django.forms.widgets import Textarea
 from django.contrib import admin
@@ -27,6 +29,7 @@ class VolunteerParticipantInline(nested_admin.NestedTabularInline):
     verbose_name_plural = _('Participants')
     extra = 0
     raw_id_fields = ['volunteer']
+    readonly_fields = ['volunteer_details']
     show_change_link = True
     formfield_overrides = {
             models.TextField: {'widget': Textarea(attrs={
@@ -38,6 +41,14 @@ class VolunteerParticipantInline(nested_admin.NestedTabularInline):
     class Media:
         # js = ['campaigns/js/make-rawid-readonly.js']
         css = {'all': ['campaigns/css/hide-rawid.css']}
+
+    def volunteer_details(self, instance):
+        volunteer = instance.volunteer
+        template = u'tel: {phone}, email: {email}, vanus: {age}'
+        if volunteer.public_notes:
+            template += u', avalikud märkmed: {public_notes}'
+        return template.format(**volunteer.__dict__)
+    volunteer_details.short_description = _('Volunteer details')
 
 
 class CampaignLocationShiftForm(forms.ModelForm):

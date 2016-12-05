@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-05 00:18+0200\n"
+"POT-Creation-Date: 2016-12-06 00:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,15 +16,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\admin.py:26
+#: .\admin.py:29
 msgid "Participant"
 msgstr "Osaleja"
 
-#: .\admin.py:27
+#: .\admin.py:30
 msgid "Participants"
 msgstr "Osalejad"
 
-#: .\admin.py:65
+#: .\admin.py:48
+msgid "Volunteer details"
+msgstr "Vabatahtliku andmed"
+
+#: .\admin.py:73
 msgid "Registered volunteers"
 msgstr "Registreerunud"
 
@@ -99,12 +103,6 @@ msgstr "Kampaania vahetus"
 #: .\models.py:91
 msgid "Campaign shifts"
 msgstr "Kampaania vahetused"
-
-#: .\models.py:117
-#, fuzzy
-#| msgid "Volunteers"
-msgid "Volunteer"
-msgstr "Vabatahtlikud"
 
 #: .\models.py:119
 msgid "Shift"
