@@ -3,6 +3,7 @@
 import os
 
 from django.db import models
+from django.db.models import F, Sum, IntegerField
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from django.utils.formats import date_format
@@ -72,6 +73,14 @@ class Campaign(models.Model):
         return start.format(day_month_format), end.format(day_month_format)
 
 
+class CampaignLocationShiftManager(models.Manager):
+    def with_free_places(self):
+        qs = super(CampaignLocationShiftManager, self).get_queryset()
+        return qs.annotate(free_places=F('total_places') -
+                Sum('volunteers__participant_count',
+                    output_field=IntegerField()))
+
+
 class CampaignLocationShift(models.Model):
     campaign = models.ForeignKey(Campaign, verbose_name=_('Campaign'))
     location = models.ForeignKey(Location, verbose_name=_('Location'))
@@ -84,6 +93,8 @@ class CampaignLocationShift(models.Model):
     volunteers = models.ManyToManyField(Volunteer, blank=True,
             through='CampaignLocationShiftParticipation',
             verbose_name=_('Volunteers'))
+
+    objects = CampaignLocationShiftManager()
 
     class Meta:
         unique_together = ('campaign', 'location', 'day', 'start')
@@ -99,6 +110,11 @@ class CampaignLocationShift(models.Model):
         return u'{location} | {day}, {start}-{end} vahetus'.format(**locals())
 
     @property
+    def free_places_slow(self):
+        return self.total_places - (self.volunteers.aggregate(
+                taken_places=Sum('participant_count'))['taken_places'] or 0)
+
+    @property
     def detailed_info(self):
         template = u'aeg: {day}, {start}-{end}<br>koht: {location_name}, {location_address}'
         if self.shift_leader:
@@ -111,6 +127,7 @@ class CampaignLocationShift(models.Model):
         start = date_format(self.start, 'TIME_FORMAT')
         end = date_format(self.end, 'TIME_FORMAT')
         return format_html(template, **locals())
+
 
 class CampaignLocationShiftParticipation(models.Model):
     volunteer = models.ForeignKey(Volunteer, on_delete=models.CASCADE,

@@ -1,4 +1,5 @@
 {% extends "campaigns/base.html" %}
+{% load times_filter %}
 {% block title %}Toidukogumispäevadel osalejad{% endblock title %}
 {% block css %}
 <style>
@@ -8,7 +9,7 @@
     h3 { page-break-before: always; }
   }
 
-  .notes-wide { width: 450px; }
+  .notes-wide { width: 420px; }
 </style>
 {% endblock css %}
 {% block logo %}{% endblock logo %}
@@ -29,7 +30,7 @@
       <p>Vahetuse vanem: {{ shift.shift_leader }}</p>
       {% endif %}
       <p>Vabatahtlikud:</p>
-      <table class="table">
+      <table class="table table-bordered">
         <thead>
           <tr>
             <th>Kohal?</th>
@@ -46,10 +47,19 @@
             <td>☐</td>
             <td>{{ volunteer }}</td>
             <td>{{ volunteer.phone }}</td>
-            <td>{{ volunteer.age }}</td>
+            <td>{{ volunteer.age|default_if_none:'' }}</td>
             <td class="notes-wide">{% if volunteer.public_notes %}{{ volunteer.public_notes }}<br/>{% endif %}{{ participation.shift_public_notes }}</td>
           </tr>
         {% endwith %}
+        {% endfor %}
+        {% for _ in shift.free_places_slow|times %}
+          <tr>
+            <td>☐</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td class="notes-wide">&nbsp;</td>
+          </tr>
         {% endfor %}
         </tbody>
       </table>
