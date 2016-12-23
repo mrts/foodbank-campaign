@@ -24,7 +24,9 @@ class VolunteerAdmin(admin.ModelAdmin):
     fieldsets = [
             (None, {'fields': ('first_name', 'last_name', 'age', 'phone',
                 'email', 'notes', 'public_notes')}),
-            (_('Group'), {'fields': ('is_group', 'group_name', 'participant_count')})
+            (_('Group'), {'fields': ('is_group', 'group_name',
+                'participant_count')}),
+            (_('Districts'), {'fields': ('districts',)}),
     ]
     formfield_overrides = {
             models.TextField: {'widget': Textarea(attrs={
@@ -36,8 +38,7 @@ class VolunteerAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(VolunteerAdmin, self).get_queryset(request)
-        return filter_by_district(qs, request.user,
-                'campaignlocationshift__location__district')
+        return filter_by_district(qs, request.user, 'districts')
 
 
 

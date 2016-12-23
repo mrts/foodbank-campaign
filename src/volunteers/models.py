@@ -18,6 +18,8 @@ class Volunteer(models.Model):
     is_group = models.BooleanField(_('Is group representative'), default=False)
     notes = models.TextField(_('Notes'), blank=True)
     public_notes = models.TextField(_('Public notes'), blank=True)
+    districts = models.ManyToManyField(District, blank=True,
+            verbose_name=_('Districts'))
 
     class Meta:
         verbose_name = _('Volunteer')

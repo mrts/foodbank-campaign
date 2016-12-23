@@ -139,3 +139,8 @@ class CampaignLocationShiftParticipation(models.Model):
 
     class Meta:
         unique_together = ('volunteer', 'shift')
+
+    def save(self, *args, **kwargs):
+        super(CampaignLocationShiftParticipation, self).save(*args, **kwargs)
+        district = self.shift.location.district
+        self.volunteer.districts.add(district)
