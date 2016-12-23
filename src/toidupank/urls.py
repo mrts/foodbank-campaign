@@ -25,6 +25,7 @@ admin.site.site_header = admin.site.site_title
 urlpatterns = [
     url(r'', include('campaigns.urls')),
     url(r'^volunteers/', include('volunteers.urls')),
+    url(r'^locations/', include('locations.urls')),
     url(r'^%s/' % settings.ADMIN_URL_PREFIX, admin.site.urls),
     url(r'^nested_admin/', include('nested_admin.urls')),
 ]

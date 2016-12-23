@@ -1,0 +1,26 @@
+{% extends "campaigns/base.html" %}
+{% block title %}Ülevaade vabatahtlikest{% endblock title %}
+{% block css %}<style>p { padding: 15px; }</style>{% endblock css %}
+{% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+{% for location in locations %}
+  <h4>{{ location.name }}</h4>
+  <h5>Vahetuse vanemad</h5>
+  <p>
+  {% for leader in location.leaders %}
+    {{ leader.name }} &lt;{{ leader.email }}&gt;,
+  {% endfor %}
+  </p>
+  <h5>Vabatahtlikud</h5>
+  <p>
+  {% for volunteer in location.volunteers %}
+    {{ volunteer.name }} &lt;{{ volunteer.email }}&gt;,
+  {% endfor %}
+  </p>
+{% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock body %}
