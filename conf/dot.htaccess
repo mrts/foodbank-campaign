@@ -1,5 +1,11 @@
 AddHandler fcgid-script .fcgi
+
 RewriteEngine On
+
+RewriteCond %{HTTPS} !=on
+RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R,L]
+
 RewriteRule ^(static.*)$ $1 [QSA,L,PT]
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ cgi-bin/django.fcgi/$1 [QSA,L]
