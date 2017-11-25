@@ -103,6 +103,7 @@ def registration(request):
             'districts': list(districts),
             'locations_and_shifts': list(locations_and_shifts),
             'form': form,
+            'is_test_env': not settings.IS_PRODUCTION_ENV,
         }
         return render(request, 'campaigns/registration.html', context)
     except Campaign.DoesNotExist:

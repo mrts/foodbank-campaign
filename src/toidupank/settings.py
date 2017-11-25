@@ -161,7 +161,9 @@ ADMIN_URL_PREFIX = 'haldus'
 
 # Mandatory settings override in production environment
 PRODUCTION_HOSTNAME = 'atria.elkdata.ee'
+IS_PRODUCTION_ENV = False
 if platform.node() == PRODUCTION_HOSTNAME and 'live-osale' in BASE_DIR:
+    IS_PRODUCTION_ENV = True
     from settings_live import *
 else:
     # Optional local settings override, especially useful during development

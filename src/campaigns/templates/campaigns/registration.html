@@ -26,6 +26,7 @@
   </style>
 {% endblock css %}
 {% block header %}
+        {% if is_test_env %}<h2 style="font-weight: bold; background: #f00; padding: 14px; color: #fff; display: inline-block">TEST</h2>{% endif %}
         <h1>{{ campaign.name }}</h1>
         <h2>{{ campaign.start|date:"MONTH_DAY_FORMAT" }} - {{ campaign.end|date:"MONTH_DAY_FORMAT" }}</h2>
 {% endblock header %}
