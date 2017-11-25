@@ -21,12 +21,18 @@ class VolunteerAdmin(admin.ModelAdmin):
     search_fields = ['first_name', 'last_name', 'email', 'phone']
     list_display = ['first_name', 'last_name', 'email', 'phone', 'age',
             'is_group', 'participant_count']
+    readonly_fields = ['registration_time']
     fieldsets = [
             (None, {'fields': ('first_name', 'last_name', 'age', 'phone',
                 'email', 'notes', 'public_notes')}),
             (_('Group'), {'fields': ('is_group', 'group_name',
                 'participant_count')}),
             (_('Districts'), {'fields': ('districts',)}),
+            (_('Registration details'), {
+                'fields': ('registration_time',
+                    'registration_ip_address','registration_user_agent'),
+                'classes': ('collapse',),
+            }),
     ]
     formfield_overrides = {
             models.TextField: {'widget': Textarea(attrs={
