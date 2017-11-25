@@ -155,6 +155,17 @@
 
 {% block js %}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/jquery.validate.min.js"></script>
+  <script>
+  $.validator.addMethod( "pattern", function( value, element, param ) {
+    if ( this.optional( element ) ) {
+      return true;
+    }
+    if ( typeof param === "string" ) {
+      param = new RegExp( "^(?:" + param + ")$" );
+    }
+    return param.test( value );
+  }, "Invalid format." );
+  </script>
   <script type="text/template" id="shopsAndShiftsTemplate">
     <% _.forEach(shopsAndShifts, function(item) { %>
       <tr>
@@ -278,10 +289,18 @@
           age: {
             required: {
               depends: function (element) { return !isGroupRegistration; }
-            }
+            },
+            min: 10,
+            max: 100
           },
-          phone: "required",
-          email: "required",
+          phone: {
+            required: true,
+            pattern: "\\+?\\d{4,20}"
+          },
+          email: {
+            required: true,
+            email: true
+          },
           group_name: {
             required: {
               depends: function (element) { return isGroupRegistration; }
@@ -290,18 +309,20 @@
           participant_count: {
             required: {
               depends: function (element) { return isGroupRegistration; }
-            }
+            },
+            min: 2,
+            max: 50
           }
         },
         messages: {
           selected_shifts: "Palun valige pood ja vahetus",
           first_name: "Palun sisestage eesnimi",
           last_name: "Palun sisestage perekonnanimi",
-          age: "Palun sisestage vanus",
-          phone: "Palun sisestage telefon",
+          age: "Palun sisestage korrektne vanus (10-100)",
+          phone: "Palun sisestage korrektne telefoninumber",
           email: "Palun sisestage e-maili aadress",
           group_name: "Palun sisestage grupi/asutuse nimi",
-          participant_count: "Palun sisestage osalejate arv"
+          participant_count: "Palun sisestage korrektne osalejate arv (2-50)"
         },
         submitHandler: function (form) {
           form.submit();
