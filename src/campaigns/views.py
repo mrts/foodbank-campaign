@@ -12,6 +12,7 @@ from django.utils.translation import ugettext as _
 from django.core.mail import send_mail
 
 from utils import string_template
+from utils.request import get_ip_address, get_user_agent
 from campaigns.models import (
     Campaign, CampaignLocationShift, CampaignLocationShiftParticipation
 )
@@ -66,7 +67,10 @@ def registration(request):
         if not shifts:
             form.add_error(None, _('No shift selected'))
         elif form_is_valid:
-            volunteer = form.save()
+            volunteer = form.save(commit=False)
+            volunteer.registration_ip_address = get_ip_address(request)
+            volunteer.registration_user_agent = get_user_agent(request)
+            volunteer.save()
             shifts = CampaignLocationShift.objects.filter(pk__in=shifts)
             for shift in shifts:
                 CampaignLocationShiftParticipation.objects.update_or_create(

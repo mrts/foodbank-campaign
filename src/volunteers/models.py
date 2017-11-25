@@ -20,6 +20,12 @@ class Volunteer(models.Model):
     public_notes = models.TextField(_('Public notes'), blank=True)
     districts = models.ManyToManyField(District, blank=True,
             verbose_name=_('Districts'))
+    registration_time = models.DateTimeField(_('Registration time'),
+            auto_now_add=True, db_index=True)
+    registration_ip_address = models.GenericIPAddressField(
+            _('Registration IP address'), db_index=True, blank=True, null=True)
+    registration_user_agent = models.CharField(_('Registration user agent'),
+            max_length=255, blank=True)
 
     class Meta:
         verbose_name = _('Volunteer')
