@@ -3,6 +3,7 @@
 import json
 import numbers
 
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django import forms
