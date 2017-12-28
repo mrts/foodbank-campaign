@@ -155,7 +155,7 @@
 {% endblock content %}
 
 {% block js %}
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/jquery.validate.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
   <script>
   $.validator.addMethod( "pattern", function( value, element, param ) {
     if ( this.optional( element ) ) {
@@ -263,7 +263,7 @@
       $('#navtab-group').removeClass('active');
       $('#navtab-self').addClass('active');
       $('#id_is_group').val('False');
-      $('#id_participant_count').val('1');
+      $('#id_participant_count').val('2'); // fake value to make min validator happy, cleaned at server side
       isGroupRegistration = false;
     }
 
@@ -274,9 +274,7 @@
       $('#navtab-group').addClass('active');
       $('#navtab-self').removeClass('active');
       $('#id_is_group').val('True');
-      if ($('#id_participant_count').val() === '1') {
-        $('#id_participant_count').val('');
-      }
+      $('#id_participant_count').val('');
       isGroupRegistration = true;
     }
 
@@ -324,9 +322,6 @@
           email: "Palun sisestage e-maili aadress",
           group_name: "Palun sisestage grupi/asutuse nimi",
           participant_count: "Palun sisestage korrektne osalejate arv (2-50)"
-        },
-        submitHandler: function (form) {
-          form.submit();
         }
       });
     }

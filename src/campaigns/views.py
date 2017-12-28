@@ -37,10 +37,11 @@ class VolunteerRegistrationForm(forms.ModelForm):
             self.fields[field].widget.attrs.update({'class': 'form-control'})
 
     def clean(self):
-        cleaned_data = super(VolunteerRegistrationForm, self).clean()
-        participant_count = cleaned_data.get('participant_count')
+        cleaned_data = super().clean()
+        if not self.is_valid():
+            return
         is_group = cleaned_data.get('is_group')
-        if not is_group and participant_count > 1:
+        if not is_group:
             cleaned_data['participant_count'] = 1
 
 
