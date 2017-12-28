@@ -1,7 +1,7 @@
-Django>=1.10.3,<=1.11
-Pillow==3.4.2
-django-tinymce==2.3.0
-django-nested-admin==3.0.12
-flup
-git+http://github.com/NetAngels/django-fastcgi.git
-git+http://github.com/perenecabuto/django-sendmail-backend.git
+Django
+Pillow
+django-tinymce
+django-nested-admin
+flup6
+django-fastcgi-server
+django_sendmail_backend

@@ -34,7 +34,7 @@ class Campaign(models.Model):
         verbose_name = _('Campaign')
         verbose_name_plural = _('Campaigns')
 
-    def __unicode__(self):
+    def __str__(self):
         return u'{start} {name}'.format(**self.__dict__)
 
     def clean(self):
@@ -45,7 +45,7 @@ class Campaign(models.Model):
             raise ValidationError('Only one campaign can be active at a time')
 
     def save(self, *args, **kwargs):
-        super(Campaign, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
         self._generate_card_image()
 
     @property
@@ -75,20 +75,20 @@ class Campaign(models.Model):
 
 class CampaignLocationShiftManager(models.Manager):
     def with_free_places(self):
-        qs = super(CampaignLocationShiftManager, self).get_queryset()
+        qs = super().get_queryset()
         return qs.annotate(free_places=F('total_places') -
                 Sum('volunteers__participant_count',
                     output_field=IntegerField()))
 
 
 class CampaignLocationShift(models.Model):
-    campaign = models.ForeignKey(Campaign, verbose_name=_('Campaign'))
-    location = models.ForeignKey(Location, verbose_name=_('Location'))
+    campaign = models.ForeignKey(Campaign, on_delete=models.CASCADE, verbose_name=_('Campaign'))
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, verbose_name=_('Location'))
     day = models.DateField(_('Day'))
     start = models.TimeField(_('Start'))
     end = models.TimeField(_('End'))
     total_places = models.IntegerField(_('Total places'))
-    shift_leader = models.ForeignKey(Volunteer, blank=True, null=True,
+    shift_leader = models.ForeignKey(Volunteer, on_delete=models.CASCADE, blank=True, null=True,
             verbose_name=_('Shift leader'), related_name='shift_leader')
     volunteers = models.ManyToManyField(Volunteer, blank=True,
             through='CampaignLocationShiftParticipation',
@@ -102,8 +102,8 @@ class CampaignLocationShift(models.Model):
         verbose_name_plural = _('Campaign shifts')
         ordering = ['location__district__name', 'location__name', 'day', 'start']
 
-    def __unicode__(self):
-        location = unicode(self.location)
+    def __str__(self):
+        location = self.location
         day = date_format(self.day, 'MONTH_DAY_FORMAT')
         start = date_format(self.start, 'TIME_FORMAT')
         end = date_format(self.end, 'TIME_FORMAT')
@@ -121,8 +121,8 @@ class CampaignLocationShift(models.Model):
             shift_leader_name = self.shift_leader.name
             shift_leader_phone = self.shift_leader.phone
             template += u'<br>vahetuse vanem: {shift_leader_name}, telefon {shift_leader_phone}'
-        location_name = unicode(self.location.name)
-        location_address = unicode(self.location.address)
+        location_name = self.location.name
+        location_address = self.location.address
         day = date_format(self.day, 'MONTH_DAY_FORMAT')
         start = date_format(self.start, 'TIME_FORMAT')
         end = date_format(self.end, 'TIME_FORMAT')
@@ -141,6 +141,6 @@ class CampaignLocationShiftParticipation(models.Model):
         unique_together = ('volunteer', 'shift')
 
     def save(self, *args, **kwargs):
-        super(CampaignLocationShiftParticipation, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
         district = self.shift.location.district
         self.volunteer.districts.add(district)

@@ -44,5 +44,5 @@ class Volunteer(models.Model):
     def shifts(self):
         return self.campaignlocationshift_set.order_by('day', 'start')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name

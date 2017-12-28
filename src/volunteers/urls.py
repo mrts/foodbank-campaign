@@ -1,7 +1,7 @@
-from django.conf.urls import url
+from django.urls import re_path
 
 from . import views
 
 urlpatterns = [
-    url(r'^(?P<key>[-:\w]+)/$', views.volunteer_detail, name='volunteer_detail'),
+    re_path(r'(?P<key>[-:\w]+)/', views.volunteer_detail, name='volunteer_detail'),
 ]

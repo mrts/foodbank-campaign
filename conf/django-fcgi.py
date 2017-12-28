@@ -1,6 +1,6 @@
 import sys, os
 
-APPNAME = "toidupank"
+APPNAME = "foodbank"
 
 APPDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 VENV_BIN_DIR = APPDIR + "/venv/bin"

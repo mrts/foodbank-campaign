@@ -43,9 +43,8 @@ class VolunteerAdmin(admin.ModelAdmin):
     inlines = [CampaignLocationShiftInline]
 
     def get_queryset(self, request):
-        qs = super(VolunteerAdmin, self).get_queryset(request)
+        qs = super().get_queryset(request)
         return filter_by_district(qs, request.user, 'districts')
-
 
 
 admin.site.register(Volunteer, VolunteerAdmin)

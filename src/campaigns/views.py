@@ -5,7 +5,7 @@ import numbers
 
 from django.conf import settings
 from django.shortcuts import render, redirect
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django import forms
 from django.http import HttpResponseBadRequest
 from django.core import signing
@@ -32,7 +32,7 @@ class VolunteerRegistrationForm(forms.ModelForm):
 
     # add Bootstrap classes
     def __init__(self, *args, **kwargs):
-        super(VolunteerRegistrationForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         for field in iter(self.fields):
             self.fields[field].widget.attrs.update({'class': 'form-control'})
 

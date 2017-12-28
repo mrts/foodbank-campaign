@@ -53,7 +53,7 @@ class VolunteerParticipantInline(nested_admin.NestedTabularInline):
 
 class CampaignLocationShiftForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-        super(CampaignLocationShiftForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['shift_leader'].queryset = Volunteer.objects.filter(campaignlocationshift=self.instance)
 
 
@@ -76,7 +76,7 @@ class CampaignLocationShiftAdmin(admin.ModelAdmin):
     registered_volunteers.short_description = _('Registered volunteers')
 
     def get_queryset(self, request):
-        qs = super(CampaignLocationShiftAdmin, self).get_queryset(request)
+        qs = super().get_queryset(request)
         return filter_by_district(qs, request.user, 'location__district')
 
 

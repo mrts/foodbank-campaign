@@ -14,14 +14,14 @@ class District(models.Model):
         verbose_name_plural = _('Districts')
         ordering = ['name']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
 class Location(models.Model):
     name = models.CharField(_('Name'), max_length=255)
 
-    district = models.ForeignKey(District, verbose_name=_('District'))
+    district = models.ForeignKey(District, on_delete=models.CASCADE, verbose_name=_('District'))
     address = models.CharField(_('Address'), max_length=255)
     contact_person = models.CharField(_('Contact person'), max_length=255,
             blank=True)
@@ -32,5 +32,5 @@ class Location(models.Model):
         verbose_name_plural = _('Locations')
         ordering = ['name']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name

@@ -9,7 +9,7 @@ from locations.models import District
 class Coordinator(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     is_manager = models.BooleanField()
-    district = models.ForeignKey(District, verbose_name=_('District'),
+    district = models.ForeignKey(District, on_delete=models.SET_NULL, verbose_name=_('District'),
             blank=True, null=True)
 
 def filter_by_district(qs, user, lookup):

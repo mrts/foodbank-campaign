@@ -17,6 +17,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='campaignlocationshift',
             name='shift_leader',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='volunteers.ShiftLeader', verbose_name='Shift leader'),
+            field=models.ForeignKey(blank=True, null=True,
+                on_delete=django.db.models.deletion.CASCADE, to='volunteers.Volunteer', verbose_name='Shift leader'),
         ),
     ]

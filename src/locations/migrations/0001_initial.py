@@ -43,6 +43,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='location',
             name='district',
-            field=models.ForeignKey(to='locations.District'),
+            field=models.ForeignKey(on_delete=models.deletion.CASCADE, to='locations.District'),
         ),
     ]
