@@ -5,15 +5,15 @@ from django.utils.translation import ugettext_lazy as _
 
 from volunteers.models import Volunteer
 from coordinators.models import filter_by_district
-from campaigns.admin import VolunteerParticipantInline
+from campaigns.admin import VolunteerParticipantInlineBase
 
 
-class CampaignLocationShiftInline(VolunteerParticipantInline):
+class CampaignLocationShiftInline(VolunteerParticipantInlineBase,
+        admin.TabularInline):
     verbose_name = _('Campaign shift')
     verbose_name_plural = _('Campaign shifts')
-    raw_id_fields = ['shift']
-    # get_queryset is inherited from VolunteerParticipantInline,
-    # but filtering seems to fail...
+    autocomplete_fields = ['shift']
+    # TODO: need to implement get_queryset to limit shifts by location
 
 
 class VolunteerAdmin(admin.ModelAdmin):

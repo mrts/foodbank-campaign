@@ -9,11 +9,14 @@ from campaigns.models import CampaignLocationShift
 from coordinators.models import filter_by_district
 
 from campaigns.admin import (
-    VolunteerParticipantInline,
+    VolunteerParticipantInlineBase,
     CampaignLocationShiftForm
 )
 
 from .admin_actions import list_volunteers_by_shift_and_location
+
+class VolunteerParticipantInline(VolunteerParticipantInlineBase, nested_admin.NestedTabularInline):
+    pass
 
 class CampaignShiftInline(nested_admin.NestedTabularInline):
     form = CampaignLocationShiftForm

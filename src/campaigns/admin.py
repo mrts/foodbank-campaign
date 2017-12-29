@@ -23,24 +23,20 @@ class CampaignAdmin(admin.ModelAdmin):
     ordering = ['-is_active', '-start']
 
 
-class VolunteerParticipantInline(nested_admin.NestedTabularInline):
+class VolunteerParticipantInlineBase:
     model = CampaignLocationShiftParticipation
     verbose_name = _('Participant')
     verbose_name_plural = _('Participants')
     extra = 0
-    raw_id_fields = ['volunteer']
+    autocomplete_fields = ['volunteer']
     readonly_fields = ['volunteer_details']
-    show_change_link = True
     formfield_overrides = {
             models.TextField: {'widget': Textarea(attrs={
                 'rows': '2',
                 'cols': '40',
             })},
     }
-
-    class Media:
-        # js = ['campaigns/js/make-rawid-readonly.js']
-        css = {'all': ['campaigns/css/hide-rawid.css']}
+    # TODO: need to implement get_queryset to limit shifts by location
 
     def volunteer_details(self, instance):
         volunteer = instance.volunteer
@@ -49,6 +45,10 @@ class VolunteerParticipantInline(nested_admin.NestedTabularInline):
             template += u', avalikud märkmed: {public_notes}'
         return template.format(**volunteer.__dict__)
     volunteer_details.short_description = _('Volunteer details')
+
+
+class VolunteerParticipantInline(VolunteerParticipantInlineBase, admin.TabularInline):
+    pass
 
 
 class CampaignLocationShiftForm(forms.ModelForm):
