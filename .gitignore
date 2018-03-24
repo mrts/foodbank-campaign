@@ -5,3 +5,12 @@ db.sqlite*
 htdocs/static/
 settings_live.py
 settings_local.py
+tests/cypress/cypress/integration/example_spec.js
+tests/cypress/node_modules/
+tests/cypress/cypress/screenshots/my-image.png
+tests/cypress/cypress/fixtures/users.json
+tests/cypress/cypress/fixtures/profile.json
+tests/cypress/cypress/fixtures/example.json
+tests/cypress/cypress/plugins/index.js
+tests/cypress/cypress/support/index.js
+tests/cypress/cypress/support/commands.js
