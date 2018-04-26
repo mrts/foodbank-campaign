@@ -112,7 +112,7 @@ def registration(request):
         return render(request, 'campaigns/no-active-campaign.html')
 
 EMAIL_TXT_TEMPLATE = u'''
-Tere {{ volunteer.name }}!
+Tere, {{ volunteer.name }}!
 
 Oled registreerunud Toidupanga toidukogumispävadele järgmistele vahetustele:
 
@@ -133,7 +133,7 @@ Toidupanga meeskond
 
 EMAIL_HTML_TEMPLATE = u'''<html>
 <body>
-<h2>Tere {{ volunteer.name }}!</h2>
+<h2>Tere, {{ volunteer.name }}!</h2>
 
 <p>Valitud vahetused:</p>
 {% for shift in volunteer.shifts %}

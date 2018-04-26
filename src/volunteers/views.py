@@ -10,10 +10,10 @@ from .models import Volunteer
 
 
 TEMPLATE = u'''{% extends "campaigns/base.html" %}
-{% block title %}Tere {{ volunteer.name }}!{% endblock title %}
+{% block title %}Tere, {{ volunteer.name }}!{% endblock title %}
 
 {% block header %}
-        <h1>Tere {{ volunteer.name }}!</h1>
+        <h1>Tere, {{ volunteer.name }}!</h1>
 {% endblock header %}
 
 {% block content %}
