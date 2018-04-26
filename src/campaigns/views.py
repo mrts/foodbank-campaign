@@ -112,7 +112,7 @@ def registration(request):
         return render(request, 'campaigns/no-active-campaign.html')
 
 EMAIL_TXT_TEMPLATE = u'''
-Tere {{ volunteer.name }}!
+Tere, {{ volunteer.name }}!
 
 Oled registreerunud Toidupanga toidukogumispävadele järgmistele vahetustele:
 
