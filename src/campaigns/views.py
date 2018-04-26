@@ -133,7 +133,7 @@ Toidupanga meeskond
 
 EMAIL_HTML_TEMPLATE = u'''<html>
 <body>
-<h2>Tere {{ volunteer.name }}!</h2>
+<h2>Tere, {{ volunteer.name }}!</h2>
 
 <p>Valitud vahetused:</p>
 {% for shift in volunteer.shifts %}
