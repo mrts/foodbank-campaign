@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'campaigns',
     'coordinators',
     'volunteers',
+    'auditlog',
 ]
 
 MIDDLEWARE = [
