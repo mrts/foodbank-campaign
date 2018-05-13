@@ -31,6 +31,7 @@ class LogEntryAdmin(admin.ModelAdmin):
         return False
 
     def has_change_permission(self, request, obj=None):
+        # cannot return False, the module wouldn't be visible in admin
         return request.user.is_superuser and request.method != 'POST'
 
     def has_delete_permission(self, request, obj=None):
