@@ -2,120 +2,125 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 00:18+0200\n"
+"POT-Creation-Date: 2018-11-19 22:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\admin.py:29
+#: .\campaigns\admin.py:28
 msgid "Participant"
 msgstr "Osaleja"
 
-#: .\admin.py:30
+#: .\campaigns\admin.py:29
 msgid "Participants"
 msgstr "Osalejad"
 
-#: .\admin.py:48
+#: .\campaigns\admin.py:47
 msgid "Volunteer details"
 msgstr "Vabatahtliku andmed"
 
-#: .\admin.py:73
+#: .\campaigns\admin.py:76
 msgid "Registered volunteers"
 msgstr "Registreerunud"
 
-#: .\apps.py:7 .\models.py:34
+#: .\campaigns\apps.py:7 .\campaigns\models.py:35
 msgid "Campaigns"
 msgstr "Kampaaniad"
 
-#: .\models.py:21
+#: .\campaigns\models.py:22
 msgid "Name"
 msgstr "Nimi"
 
-#: .\models.py:22 .\models.py:79
+#: .\campaigns\models.py:23 .\campaigns\models.py:88
 msgid "Start"
 msgstr "Algus"
 
-#: .\models.py:23 .\models.py:80
+#: .\campaigns\models.py:24 .\campaigns\models.py:89
 msgid "End"
 msgstr "Lõpp"
 
-#: .\models.py:24
+#: .\campaigns\models.py:25
 msgid "Is active"
 msgstr "Aktiivne"
 
-#: .\models.py:25
+#: .\campaigns\models.py:26
 msgid "Summary"
 msgstr "Lühikokkuvõte"
 
-#: .\models.py:26
+#: .\campaigns\models.py:27
 msgid "Registration form header"
 msgstr "Registreerumisvormi päis"
 
-#: .\models.py:27
+#: .\campaigns\models.py:28
 msgid "Registration form footer"
 msgstr "Registreerumisvormi jalus"
 
-#: .\models.py:28
+#: .\campaigns\models.py:29
 msgid "Registration form right panel"
 msgstr "Registreerumisvormi parem paneel"
 
-#: .\models.py:29
+#: .\campaigns\models.py:30
 msgid "Registration confirmation template"
 msgstr "Registreerumise kinnituse mall"
 
-#: .\models.py:33 .\models.py:76
+#: .\campaigns\models.py:34 .\campaigns\models.py:85
 msgid "Campaign"
 msgstr "Kampaania"
 
-#: .\models.py:77
+#: .\campaigns\models.py:86
 msgid "Location"
 msgstr "Asukoht"
 
-#: .\models.py:78
+#: .\campaigns\models.py:87
 msgid "Day"
 msgstr "Kuupäev"
 
-#: .\models.py:81
+#: .\campaigns\models.py:90
 msgid "Total places"
 msgstr "Kohti"
 
-#: .\models.py:83
+#: .\campaigns\models.py:92
 msgid "Shift leader"
 msgstr "Vahetuse vanem"
 
-#: .\models.py:86
+#: .\campaigns\models.py:95
 msgid "Volunteers"
 msgstr "Vabatahtlikud"
 
-#: .\models.py:90
+#: .\campaigns\models.py:101
 msgid "Campaign shift"
 msgstr "Kampaania vahetus"
 
-#: .\models.py:91
+#: .\campaigns\models.py:102
 msgid "Campaign shifts"
 msgstr "Kampaania vahetused"
 
-#: .\models.py:119
+#: .\campaigns\models.py:134
+msgid "Volunteer"
+msgstr "Vabatahtlik"
+
+#: .\campaigns\models.py:136
 msgid "Shift"
 msgstr "Vahetus"
 
-#: .\models.py:120
+#: .\campaigns\models.py:137
 msgid "Shift public notes"
 msgstr "Vahetuse avalikud märkmed"
 
-#: .\models.py:121
-msgid "Was present"
-msgstr "Oli kohal"
+#: .\campaigns\models.py:138
+msgid "Was not present"
+msgstr "Ei tulnud kohale"
 
-#: .\views.py:66
+#: .\campaigns\views.py:70
 msgid "No shift selected"
 msgstr "Vahetus valimata"
