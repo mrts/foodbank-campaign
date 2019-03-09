@@ -5,6 +5,7 @@ db.sqlite*
 htdocs/static/
 settings_live.py
 settings_local.py
+shift-leaders.txt
 tests/cypress/cypress/integration/example_spec.js
 tests/cypress/node_modules/
 tests/cypress/cypress/screenshots/my-image.png
