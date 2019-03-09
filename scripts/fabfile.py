@@ -1,33 +1,35 @@
-from fabric.api import env, run, cd, prefix
+from fabric import task
 
 CODE_DIR = '~/django-projects/test-osale/foodbank-campaign/src'
 
 # for FreeBSD compatibility
-env.shell = '/bin/sh -c'
+SHELL = '/bin/sh -c'
 
-def deploy():
-    with cd(CODE_DIR):
-        pull_changes()
-        with prefix('. ../venv/bin/activate'):
-            update_dependencies()
-            migrate_database()
-            update_static_files()
-            restart_app()
+@task
+def deploy(c):
+    c.shell = SHELL
+    with c.cd(CODE_DIR):
+        pull_changes(c)
+        with c.prefix('. ../venv/bin/activate'):
+            update_dependencies(c)
+            migrate_database(c)
+            update_static_files(c)
+            restart_app(c)
 
-def update_dependencies():
-    run('pip install --requirement=requirements.txt')
+def update_dependencies(c):
+    c.run('pip install --requirement=requirements.txt')
 
-def pull_changes():
-    run('git fetch')
-    run('git reset --hard origin/master')
+def pull_changes(c):
+    c.run('git fetch')
+    c.run('git reset --hard origin/master')
 
-def migrate_database():
-    run('python manage.py migrate --noinput')
+def migrate_database(c):
+    c.run('python manage.py migrate --noinput')
 
-def update_static_files():
-    run('python manage.py collectstatic --noinput')
+def update_static_files(c):
+    c.run('python manage.py collectstatic --noinput')
 
-def restart_app():
-    run('../scripts/restart-fcgi.sh')
+def restart_app(c):
+    c.run('../scripts/restart-fcgi.sh')
     # for WSGI:
-    # run('touch toidupank/wsgi.py')
+    # c.run('touch toidupank/wsgi.py')
