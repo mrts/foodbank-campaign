@@ -18,6 +18,7 @@ class CampaignLocationShiftInline(VolunteerParticipantInlineBase,
 
 class VolunteerAdmin(admin.ModelAdmin):
     save_on_top = True
+    save_as = True
     search_fields = ['first_name', 'last_name', 'email', 'phone']
     list_display = ['first_name', 'last_name', 'email', 'phone', 'age',
             'is_group', 'participant_count']
