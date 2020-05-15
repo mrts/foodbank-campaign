@@ -17,7 +17,7 @@ def deploy(c):
             restart_app(c)
 
 def update_dependencies(c):
-    c.run('pip install --requirement=requirements.txt')
+    c.run('pip install --requirement=requirements.txt --upgrade')
 
 def pull_changes(c):
     c.run('git fetch')
