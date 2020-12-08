@@ -143,12 +143,11 @@ MEDIA_ROOT  = os.path.join(HTDOCS, 'static', 'uploads')
 # Rich-text editor
 
 TINYMCE_DEFAULT_CONFIG = {
-    'theme': 'advanced',
-    'relative_urls': False,
-    'theme_advanced_buttons1': 'bold,italic,link,separator,'
-        'bullist,numlist,separator,undo,redo,separator,removeformat,code',
+    'plugins': 'link lists code',
+    'menubar': 'edit format',
+    'toolbar': 'undo redo | styleselect | bold italic | removeformat | link | bullist numlist | code',
     'width': 500,
-    'height': 250,
+    'height': 400,
 }
 
 # Fix Estonian date formatting
