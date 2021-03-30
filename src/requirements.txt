@@ -1,4 +1,4 @@
-Django >2.2.16, <3
+Django >=2.2.19, <3
 Pillow
 django-tinymce <3.2
 django-nested-admin
