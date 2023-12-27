@@ -27,6 +27,8 @@ SECRET_KEY = 'e6#83hi)*reeq2lk1v9y59u(z@i7(wto-ter#q&3ii8f6t8n2x'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',

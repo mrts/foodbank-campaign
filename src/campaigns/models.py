@@ -5,7 +5,7 @@ import os
 from django.db import models
 from django.db.models import F, Sum, IntegerField
 from django.core.exceptions import ValidationError
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.utils.formats import date_format
 from django.utils.dateformat import DateFormat
 from django.utils.html import format_html

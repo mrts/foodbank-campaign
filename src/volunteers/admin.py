@@ -1,7 +1,7 @@
 from django.db import models
 from django.forms.widgets import Textarea
 from django.contrib import admin
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from volunteers.models import Volunteer
 from coordinators.models import filter_by_district

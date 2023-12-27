@@ -27,7 +27,7 @@ urlpatterns = [
     path('locations/', include('locations.urls')),
 ]
 
-# from django.utils.translation import ugettext_lazy as _
+# from django.utils.translation import gettext_lazy as _
 # _('Foodbank campaign administration') seems not to work, go figure
 admin.site.site_title = 'Toidupanga kampaaniate haldamine'
 admin.site.site_header = admin.site.site_title

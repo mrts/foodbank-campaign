@@ -7,13 +7,13 @@ from django.db import migrations
 from coordinators.auth_migration_utils import get_coordinators_group, get_permissions
 
 
-# TODO: should add rights first with a migration :)
-def remove_location_and_shift_add_delete_rights(apps, schema_editor):
-    coordinators_group = get_coordinators_group(apps)
-    permissions = get_permissions(apps,
-            ('locations', 'location', ('add', 'delete')),
-            ('campaigns', 'campaignlocationshift', ('add', 'delete')))
-    coordinators_group.permissions.remove(*permissions)
+# TODO: figure out what to do with this
+# def remove_location_and_shift_add_delete_rights(apps, schema_editor):
+    # coordinators_group = get_coordinators_group(apps)
+    # permissions = get_permissions(apps,
+            # ('locations', 'location', ('add', 'delete')),
+            # ('campaigns', 'campaignlocationshift', ('add', 'delete')))
+    # coordinators_group.permissions.remove(*permissions)
 
 
 class Migration(migrations.Migration):
@@ -23,6 +23,6 @@ class Migration(migrations.Migration):
         ('coordinators', '0001_initial'),
     ]
 
-    operations = [
-        migrations.RunPython(remove_location_and_shift_add_delete_rights),
-    ]
+    # operations = [
+        # migrations.RunPython(remove_location_and_shift_add_delete_rights),
+    # ]

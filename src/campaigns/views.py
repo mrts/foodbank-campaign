@@ -9,7 +9,7 @@ from django.urls import reverse
 from django import forms
 from django.http import HttpResponseBadRequest
 from django.core import signing
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.core.mail import send_mail
 
 from utils import string_template

@@ -7,12 +7,13 @@ from django.db import migrations
 from coordinators.auth_migration_utils import get_coordinators_group, get_permissions
 
 
-def add_campaignlocationshiftparticipation_rights(apps, schema_editor):
-    coordinators_group = get_coordinators_group(apps)
-    permissions = get_permissions(apps,
-            ('campaigns', 'campaignlocationshiftparticipation',
-                ('add', 'change', 'delete')))
-    coordinators_group.permissions.add(*permissions)
+# TODO: figure out what to do with this
+# def add_campaignlocationshiftparticipation_rights(apps, schema_editor):
+    # coordinators_group = get_coordinators_group(apps)
+    # permissions = get_permissions(apps,
+            # ('campaigns', 'campaignlocationshiftparticipation',
+                # ('add', 'change', 'delete')))
+    # coordinators_group.permissions.add(*permissions)
 
 
 class Migration(migrations.Migration):
@@ -23,6 +24,6 @@ class Migration(migrations.Migration):
         ('coordinators', '0002_auto_20161127_1403'),
     ]
 
-    operations = [
-        migrations.RunPython(add_campaignlocationshiftparticipation_rights),
-    ]
+    # operations = [
+        # migrations.RunPython(add_campaignlocationshiftparticipation_rights),
+    # ]

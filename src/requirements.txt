@@ -1,6 +1,6 @@
-Django >=2.2.19, <3
+Django >=4.2.8, <5
 Pillow
-django-tinymce <3.2
+django-tinymce <3.7
 django-nested-admin
 flup6
 django-fastcgi-server
