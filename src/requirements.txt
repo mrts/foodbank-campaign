@@ -1,5 +1,5 @@
 Django >=4.2.8, <5
-Pillow
+Pillow==9.5.0 # See https://github.com/tensorflow/models/issues/11040
 django-tinymce <3.7
 django-nested-admin
 flup6
