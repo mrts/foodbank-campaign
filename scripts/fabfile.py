@@ -1,14 +1,21 @@
 from fabric import task
 
-CODE_DIR = '~/django-projects/test-osale/foodbank-campaign/src'
+TEST_CODE_DIR = '~/django-projects/test-osale/foodbank-campaign/src'
+PRODUCTION_CODE_DIR = '/www/apache/domains/www.toidupank.ee/django-projects/live-osale/foodbank-campaign/src'
 
 # for FreeBSD compatibility
 SHELL = '/bin/sh -c'
 
+
 @task
-def deploy(c):
+def copyproddb(c):
+    c.get(f'{PRODUCTION_CODE_DIR}/db.sqlite3')
+
+
+@task
+def deploytest(c):
     c.shell = SHELL
-    with c.cd(CODE_DIR):
+    with c.cd(TEST_CODE_DIR):
         pull_changes(c)
         with c.prefix('. ../venv/bin/activate'):
             update_dependencies(c)
