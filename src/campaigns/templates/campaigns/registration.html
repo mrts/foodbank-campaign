@@ -195,7 +195,7 @@
     {% regroup locations_and_shifts by location.district as district_list %}
     var shopsAndShifts = {
     {% for district in district_list %}
-    {{ district.grouper.id }}: [ // {{ district.grouper }}
+    {{ district.grouper.id }}: [
         {% regroup district.list by location as location_shifts %}
         {% for location in location_shifts %}
           {
