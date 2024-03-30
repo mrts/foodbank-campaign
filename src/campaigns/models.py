@@ -78,7 +78,10 @@ class CampaignLocationShiftManager(models.Manager):
         qs = super().get_queryset()
         return qs.annotate(free_places=F('total_places') -
                 Sum('volunteers__participant_count',
-                    output_field=IntegerField()))
+                    output_field=IntegerField())) \
+                        .order_by(*CampaignLocationShift._meta.ordering)
+                        # Explicit order_by is needed because annotate()
+                        # removes ordering since Django 3.1, see issue #32811.
 
 
 class CampaignLocationShift(models.Model):
